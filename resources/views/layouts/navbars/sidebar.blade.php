@@ -20,48 +20,48 @@ Tip 2: you can also add an image using data-image tag
             </li>
     
 
-            <li class="nav-item @if($activePage == 'busses') active @endif">
-                <a class="nav-link" href="{{route('page.index', 'icons')}}">
+            <li class="nav-item @if($activePage == 'headerandabout') active @endif">
+                <a class="nav-link" href="{{route('page.index', 'headerandabout')}}">
                     <i class="nc-icon nc-badge"></i>
                     <p>{{ __("Header & AboutUS") }}</p>
                 </a>
             </li>
-            <li class="nav-item @if($activePage == 'routes') active @endif">
-                <a class="nav-link" href="{{route('page.index', 'routes')}}">
+            <li class="nav-item @if($activePage == 'blogs') active @endif">
+                <a class="nav-link" href="{{route('page.index', 'blogs')}}">
                     <i class="nc-icon nc-paper-2"></i>
                     <p>{{ __("Blogs") }}</p>
                 </a>
             </li>
-            <li class="nav-item @if($activePage == 'schedules') active @endif">
-                <a class="nav-link" href="{{route('page.index', 'schedules')}}">
+            <li class="nav-item @if($activePage == 'events') active @endif">
+                <a class="nav-link" href="{{route('page.index', 'events')}}">
                     <i class="nc-icon nc-bullet-list-67"></i>
                     <p>{{ __("Events") }}</p>
                 </a>
             </li>
-            <li class="nav-item @if($activePage == 'schedules') active @endif">
-                <a class="nav-link" href="{{route('page.index', 'schedules')}}">
+            <li class="nav-item @if($activePage == 'projects') active @endif">
+                <a class="nav-link" href="{{route('page.index', 'projects')}}">
                     <i class="nc-icon nc-app"></i>
                     <p>{{ __("Projects") }}</p>
                 </a>
             </li>
 
-            <li class="nav-item @if($activePage == 'schedules') active @endif">
-                <a class="nav-link" href="{{route('page.index', 'schedules')}}">
+            <li class="nav-item @if($activePage == 'teams') active @endif">
+                <a class="nav-link" href="{{route('page.index', 'teams')}}">
                     <i class="nc-icon nc-circle-09"></i>
                     <p>{{ __("Teams") }}</p>
                 </a>
             </li>
          
 
-            <li class="nav-item @if($activePage == 'schedules') active @endif">
-                <a class="nav-link" href="{{route('page.index', 'schedules')}}">
+            <li class="nav-item @if($activePage == 'contacts') active @endif">
+                <a class="nav-link" href="{{route('page.index', 'contacts')}}">
                     <i class="nc-icon nc-badge"></i>
                     <p>{{ __("Contacts") }}</p>
                 </a>
             </li>
 
-            <li class="nav-item @if($activePage == 'schedules') active @endif">
-                <a class="nav-link" href="{{route('page.index', 'schedules')}}">
+            <li class="nav-item @if($activePage == 'footer') active @endif">
+                <a class="nav-link" href="{{route('page.index', 'footer')}}">
                     <i class="nc-icon nc-stre-down"></i>
                     <p>{{ __("Footer") }}</p>
                 </a>

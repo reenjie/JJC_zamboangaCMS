@@ -16,6 +16,7 @@
         <link href="{{ asset('light-bootstrap/css/light-bootstrap-dashboard.css?v=2.1.0') }} ?v=1" rel="stylesheet" />
         <!-- CSS Just for demo purpose, don't include it in your project -->
         <link href="{{ asset('light-bootstrap/css/demo.css') }}" rel="stylesheet" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/all.min.css" integrity="sha512-SzlrxWUlpfuzQ+pcUCosxcglQRNAq/DZjVsC0lE40xsADsfeQoEypE+enwcOiGjk/bSuGGKHEyjSoQ1zVisanQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     </head>
 
     <body>
@@ -41,6 +42,7 @@
     <script src="{{ asset('light-bootstrap/js/core/jquery.3.2.1.min.js') }}" type="text/javascript"></script>
     <script src="{{ asset('light-bootstrap/js/core/popper.min.js') }}" type="text/javascript"></script>
     <script src="{{ asset('light-bootstrap/js/core/bootstrap.min.js') }}" type="text/javascript"></script>
+    
 
     <script src="{{ asset('light-bootstrap/js/plugins/jquery.sharrre.js') }}"></script>
     <!--  Plugin for Switches, full documentation here: http://www.jque.re/plugins/version3/bootstrap.switch/ -->

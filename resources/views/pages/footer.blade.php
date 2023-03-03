@@ -1,4 +1,4 @@
-@extends('layouts.app', ['activePage' => 'busses', 'title' => 'ZCIBT', 'navName' => 'Busses', 'activeButton' => 'laravel'])
+@extends('layouts.app', ['activePage' => 'footer', 'title' => '', 'navName' => 'Footer', 'activeButton' => 'laravel'])
 
 @section('content')
     <div class="content">
@@ -7,8 +7,8 @@
                 <div class="col-md-12">
                     <div class="card strpied-tabled-with-hover">
                         <div class="card-header ">
-                            <h4 class="card-title">All Busses</h4>
-                            <p class="card-category">Manage Busses Informations</p>
+                            <h4 class="card-title">Footer</h4>
+                            <p class="card-category">Manage Informations</p>
                         </div>
                         <div class="card-body ">
 

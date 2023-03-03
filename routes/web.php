@@ -24,6 +24,40 @@ Auth::routes();
 
 Route::get('/home', 'App\Http\Controllers\HomeController@index')->name('dashboard');
 
+
+
+/* ======================================================================== */
+
+
+
+
+
+Route::post('addvideolink','App\Http\Controllers\HeaderandAboutController@storevideo')->name('addvideolink');
+
+
+Route::post('savePhoto','App\Http\Controllers\HeaderandAboutController@savePhoto')->name('savePhoto');
+
+Route::get('updateentities','App\Http\Controllers\HeaderandAboutController@updateAllWritten')->name('updateentities');
+
+Route::get('deletevlinks','App\Http\Controllers\HeaderandAboutController@deletevlinks')->name('deletevlinks');
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* ======================================================================== */
+
+
+
+
 Route::group(['middleware' => 'auth'], function () {
 	Route::resource('user', 'App\Http\Controllers\UserController', ['except' => ['show']]);
 	Route::get('profile', ['as' => 'profile.edit', 'uses' => 'App\Http\Controllers\ProfileController@edit']);
