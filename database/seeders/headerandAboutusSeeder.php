@@ -7,7 +7,8 @@ use Illuminate\Database\Seeder;
 use App\Models\Header;
 use App\Models\Aboutus;
 use App\Models\Header_video;
-
+use App\Models\Contactdetails;
+use App\Models\Footer;
 class headerandAboutusSeeder extends Seeder
 {
     /**
@@ -38,6 +39,24 @@ class headerandAboutusSeeder extends Seeder
 
         Header_video::create([
             'videolinks'=> "https://www.facebook.com/plugins/video.php?height=314&href=https%3A%2F%2Fwww.facebook.com%2Fjjczamboanga2021%2Fvideos%2F3038624199732640%2F&show_text=false&width=560&t=0",
+        ]);
+
+        Contactdetails::create([
+            'location'=>"A108 Adam Street, New York, NY 535022",
+            'email'=>"jjczamboanga2021@gmail.com",
+            'phonedetails'=>"09166476708 or 09458459056",
+            'opendetails'=>"Mon-Sat: 8AM - 8PM",
+            'facebook'=>"https://www.facebook.com/jjczamboanga2021/",
+            'twitter'=>"https://twitter.com/JJCZamboanga",
+            'instagram'=>"https://www.instagram.com/jjc.zamboanga/",
+            'linkedin' =>"linkedinlink",
+        ]);
+
+        Footer::create([
+        'p1'=>"Let's keep in touch",
+        'p2'=>"Subscribe to keep up with fresh news and exciting updates.
+        We promise not to spam you!",
+        'desc'=>"Cras fermentum odio eu feugiat lide par naso tierra. Justo eget nada terra videa magna derita valies darta donna mare fermentum iaculis eu non diam phasellus."
         ]);
 
 

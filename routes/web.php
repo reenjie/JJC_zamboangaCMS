@@ -41,7 +41,9 @@ Route::get('updateentities','App\Http\Controllers\HeaderandAboutController@updat
 
 Route::get('deletevlinks','App\Http\Controllers\HeaderandAboutController@deletevlinks')->name('deletevlinks');
 
+Route::get('deleteall','App\Http\Controllers\DeleteController@deleteall')->name('deleteall');
 
+Route::post('addall','App\Http\Controllers\Addcontroller@addall')->name('addall');
 
 
 

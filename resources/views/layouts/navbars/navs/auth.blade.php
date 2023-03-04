@@ -11,6 +11,7 @@
               <span style="margin-left:5px;color:gray"> | CMS</span>
             </ul>
             <ul class="navbar-nav   d-flex align-items-center">
+                <button style="float:right" class="btn btn-sm btn-primary">Messages <span class="badge badge-danger">4</span></button>
                 <li class="nav-item">
                     <a class="nav-link" href=" {{route('profile.edit') }} ">
                         <span class="no-icon">{{ __('Account') }}</span>
