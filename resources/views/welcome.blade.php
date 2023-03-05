@@ -247,7 +247,7 @@ $description = DB::select('SELECT * FROM `descriptions`');
             <p class="event-description">{{$item->desc}}</p>
             <div class="buttons d-grid gap-2">
               <button class="btn btn-primary" type="button">Attend</button>
-              <button class="btn btn-primary" type="button">Volunteer</button>
+              <button class="btn btn-primary" onclick="window.location.href='{{route('membershipform',['page'=>'volunteer'])}}'" type="button">Volunteer</button>
             </div>
           </article>
         </div><!-- End Events Item -->
@@ -293,7 +293,7 @@ $description = DB::select('SELECT * FROM `descriptions`');
             <p class="project-description">{{$item->desc}}</p>
             <div class="buttons d-grid gap-2">
               <button class="btn btn-primary" type="button">Pledge</button>
-              <button class="btn btn-primary" type="button">Volunteer</button>
+              <button class="btn btn-primary" onclick="window.location.href='{{route('membershipform',['page'=>'volunteer'])}}'" type="button">Volunteer</button>
             </div>
           </article>
         </div><!-- End Projects Item -->
@@ -344,7 +344,7 @@ $description = DB::select('SELECT * FROM `descriptions`');
       </div>
       <div data-aos="fade-up">
         <img src="assets/img/jjc-fam.png" class="jjc-fam-pic" alt="Be part of JJC family">
-        <a href="#" class="btn-large">Be a member now</a>
+        <a href="{{route('membershipform',["page"=>"membership"])}}" class="btn-large">Be a member now</a>
       </div>
     </div>
   </section><!-- End Our Team Section -->
