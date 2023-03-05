@@ -10,8 +10,55 @@
             <ul class="nav navbar-nav mr-auto">
               <span style="margin-left:5px;color:gray"> | CMS</span>
             </ul>
+            @php
+                $messages = DB::select('select * from contacts where status =0 ');
+                $allmessages = DB::select('select * from contacts order by created_at desc');
+            @endphp
             <ul class="navbar-nav   d-flex align-items-center">
-                <button style="float:right" class="btn btn-sm btn-primary">Messages <span class="badge badge-danger">4</span></button>
+                <button style="float:right" id="openmessages" data-toggle="modal" data-target="#viewmessage" class="btn btn-sm btn-primary  ">Messages <span class="badge badge-danger @if(count($messages)== 0) d-none @endif">{{count($messages)}}</span></button>
+         
+  
+  <!-- Modal -->
+  <div class="modal fade" id="viewmessage" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title text-primary" id="exampleModalLabel" style="font-weight:bold">Messages</h5>
+          <button type="button" class="close" onclick="window.location.reload()" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+            <div class="row">
+           
+                @foreach ($allmessages as $item)
+                <div class="col-md-12">
+                    <div class="card shadow mb-2">
+                        <div class="card-header">
+                            <h6>{{$item->email}}</h6>
+                            @if($item->status == 0)
+                            <span style="float:right" class="badge badge-success">New</span>
+                            @endif
+                        </div>
+                        <div class="card-body">
+                            <span style="font-size:14px">{{$item->message}}
+                            </span>
+                        </div>
+                    </div>
+                </div>
+             
+        @endforeach
+            </div>
+       
+
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" onclick="window.location.reload()" data-dismiss="modal">Close</button>
+         
+        </div>
+      </div>
+    </div>
+  </div>
                 <li class="nav-item">
                     <a class="nav-link" href=" {{route('profile.edit') }} ">
                         <span class="no-icon">{{ __('Account') }}</span>
@@ -28,3 +75,21 @@
         </div>
     </div>
 </nav>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.3/jquery.min.js" integrity="sha512-STof4xm1wgkfm7heWqFJVn58Hm3EtS31XFaagaa8VMReCXAkQnJZ+jEy8PCC/iT18dFy95WcExNHFTqLyp72eQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script>
+    $('#openmessages').click(function(){
+      
+
+$.ajax({
+        url: "{{route('readmessage')}}",
+        method: "GET",
+        data: { id: "aww" },
+        success: function(response) {
+          
+        },
+        error: function(jqXHR, textStatus, errorThrown) {
+          console.log(textStatus);
+        }
+        });
+    })
+</script>

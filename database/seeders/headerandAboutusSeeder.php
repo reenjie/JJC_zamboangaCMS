@@ -9,6 +9,12 @@ use App\Models\Aboutus;
 use App\Models\Header_video;
 use App\Models\Contactdetails;
 use App\Models\Footer;
+use App\Models\Team;
+use App\Models\Blogs;
+use App\Models\Events;
+use App\Models\Project;
+use App\Models\Description;
+
 class headerandAboutusSeeder extends Seeder
 {
     /**
@@ -60,6 +66,161 @@ class headerandAboutusSeeder extends Seeder
         ]);
 
 
+        Team::create([
+            'photo'=>"team-1.jpg",
+            'name' =>"Rishel Dionaldo",
+            'desc' =>"President",
+            'facebook' =>"",
+            'twitter' =>"",
+            'instagram'=>"",
+            'linkedin'=>""
+        ]);
+
+        Team::create([
+            'photo'=>"team-2.jpg",
+            'name' =>"Sarah Jhinson",
+            'desc' =>"Marketing",
+            'facebook' =>"",
+            'twitter' =>"",
+            'instagram'=>"",
+            'linkedin'=>""
+        ]);
+
+        Team::create([
+            'photo'=>"team-3.jpg",
+            'name' =>"William Anderson",
+            'desc' =>"Content",
+            'facebook' =>"",
+            'twitter' =>"",
+            'instagram'=>"",
+            'linkedin'=>""
+        ]);
+
+        Team::create([
+            'photo'=>"team-4.jpg",
+            'name' =>"Amanda Jepson",
+            'desc' =>"Accountant",
+            'facebook' =>"",
+            'twitter' =>"",
+            'instagram'=>"",
+            'linkedin'=>""
+        ]);
+
+        Team::create([
+            'photo'=>"team-5.jpg",
+            'name' =>"Amanda Jepson",
+            'desc' =>"Accountant",
+            'facebook' =>"",
+            'twitter' =>"",
+            'instagram'=>"",
+            'linkedin'=>""
+        ]);
+
+        Team::create([
+            'photo'=>"team-6.jpg",
+            'name' =>"Amanda Jepson",
+            'desc' =>"Accountant
+            ",
+            'facebook' =>"",
+            'twitter' =>"",
+            'instagram'=>"",
+            'linkedin'=>""
+        ]);
+
+        Team::create([
+            'photo'=>"team-7.jpg",
+            'name' =>"Amanda Jepson",
+            'desc' =>"Accountant
+            ",
+            'facebook' =>"",
+            'twitter' =>"",
+            'instagram'=>"",
+            'linkedin'=>""
+        ]);
+        Team::create([
+            'photo'=>"team-8.jpg",
+            'name' =>"Amanda Jepson",
+            'desc' =>"Accountant
+            ",
+            'facebook' =>"",
+            'twitter' =>"",
+            'instagram'=>"",
+            'linkedin'=>""
+        ]);
+
+        for ($i=0; $i < 3 ;$i++) { 
+            Blogs::create([
+                'photo'=>"awww.jpg",
+                'subtitle'=>"Funds",
+                'title' =>"Dolorum optio tempore voluptas dignissimos",
+                'dateblog' =>date('Y-m-d'),
+            ]);
+        }
+       
+    
+        for ($i=0; $i < 4; $i++) { 
+            Events::create([
+                'photo'=>"awww.jpg",
+                'dateofevent'=>date('Y-m-d'),
+                'title'=>"Eco Drive Event",
+                'desc'=>"Lorem ipsum dolor sit amet consectetur adipisicing elit. Debitisa",
+            ]);
+    
+            Project::create([
+                'photo'=>"awww.jpg",
+                'title' =>"Eco Drive Event",
+                'desc'  =>"Lorem ipsum dolor sit amet consectetur adipisicing elit. Debitisa"
+            ]);
+        }
+        
+
+        Description::create([
+            'desctype'=>"Recent Blog Post",
+            'desc'=>"Consequatur1 libero assumenda est voluptatem est quidem illum et officia imilique qui vel architecto accusamus fugit aut qui distinctio",
+        ]);
+
+        Description::create([
+            'desctype'=>"Latest Events",
+            'desc'=>"Consequatur2 libero assumenda est voluptatem est quidem illum et officia imilique qui vel architecto accusamus fugit aut qui distinctio",
+        ]);
+
+        Description::create([
+            'desctype'=>"Projects",
+            'desc'=>"Consequatur3 libero assumenda est voluptatem est quidem illum et officia imilique qui vel architecto accusamus fugit aut qui distinctio",
+        ]);
+
+        Description::create([
+            'desctype'=>"Our Team",
+            'desc'=>"Consequatur4 libero assumenda est voluptatem est quidem illum et officia imilique qui vel architecto accusamus fugit aut qui distinctio",
+        ]);
+
+        Description::create([
+            'desctype'=>"Contact",
+            'desc'=>"Consequatur5 libero assumenda est voluptatem est quidem illum et officia imilique qui vel architecto accusamus fugit aut qui distinctio",
+        ]);
+
+        Description::create([
+            'desctype'=>"Membership Form",
+            'desc'=>"Odio et unde deleniti. Deserunt numquam exercitationem. Officiis quo odio sint voluptas consequatur ut a odio voluptatem. Sit dolorum debitis veritatis natus dolores. Quasi ratione sint. Sit quaerat ipsum dolorem.",
+        ]);
+
+        Description::create([
+            'desctype'=>"Pledge Form",
+            'desc'=>"Odio et unde deleniti. Deserunt numquam exercitationem. Officiis quo odio sint voluptas consequatur ut a odio voluptatem. Sit dolorum debitis veritatis natus dolores. Quasi ratione sint. Sit quaerat ipsum dolorem.",
+        ]);
+        Description::create([
+            'desctype'=>"Volunteer Form",
+            'desc'=>"Odio et unde deleniti. Deserunt numquam exercitationem. Officiis quo odio sint voluptas consequatur ut a odio voluptatem. Sit dolorum debitis veritatis natus dolores. Quasi ratione sint. Sit quaerat ipsum dolorem.",
+        ]);
+
+        Description::create([
+            'desctype'=>"Partnership Form",
+            'desc'=>"Odio et unde deleniti. Deserunt numquam exercitationem. Officiis quo odio sint voluptas consequatur ut a odio voluptatem. Sit dolorum debitis veritatis natus dolores. Quasi ratione sint. Sit quaerat ipsum dolorem.",
+        ]);
+
+        
+        
+        
         
     }
 

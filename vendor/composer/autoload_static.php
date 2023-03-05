@@ -583,6 +583,8 @@ class ComposerStaticInit2a8da41bf1fdc2d65533b339f253d8db
         'App\\Models\\Footer' => __DIR__ . '/../..' . '/app/Models/Footer.php',
         'App\\Models\\Header' => __DIR__ . '/../..' . '/app/Models/Header.php',
         'App\\Models\\Header_video' => __DIR__ . '/../..' . '/app/Models/Header_video.php',
+        'App\\Models\\Partners' => __DIR__ . '/../..' . '/app/Models/Partners.php',
+        'App\\Models\\Pledges' => __DIR__ . '/../..' . '/app/Models/Pledges.php',
         'App\\Models\\Project' => __DIR__ . '/../..' . '/app/Models/Project.php',
         'App\\Models\\Team' => __DIR__ . '/../..' . '/app/Models/Team.php',
         'App\\Models\\User' => __DIR__ . '/../..' . '/app/Models/User.php',

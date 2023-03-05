@@ -45,13 +45,14 @@ Route::get('deleteall','App\Http\Controllers\DeleteController@deleteall')->name(
 
 Route::post('addall','App\Http\Controllers\Addcontroller@addall')->name('addall');
 
+Route::get('membershipform','App\Http\Controllers\PageController@membership')->name('membershipform');
+
+Route::post('saveMembership','App\Http\Controllers\Addcontroller@membership')->name('saveMembership');
+
+Route::post('saveMessage','App\Http\Controllers\Addcontroller@sendmessage')->name('saveMessage');
 
 
-
-
-
-
-
+Route::get('readmessage','App\Http\Controllers\Addcontroller@readmessage')->name('readmessage');
 
 
 

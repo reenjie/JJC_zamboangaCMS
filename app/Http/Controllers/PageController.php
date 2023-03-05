@@ -18,4 +18,25 @@ class PageController extends Controller
         }
         return abort(404);
     }
+
+    public function membership(Request $request){
+
+     
+        switch ($request->page) {
+            case 'membership':
+                return view('membership');
+                break;
+            case 'pledge':
+                return view('pledge');
+                break;
+            case 'volunteer':
+                return view('volunteer');
+                break;
+            case 'partner':
+                return view('partner');
+                break;
+
+        }
+       
+    }
 }

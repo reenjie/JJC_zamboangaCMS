@@ -13,13 +13,10 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('contacts', function (Blueprint $table) {
+        Schema::create('pledges', function (Blueprint $table) {
             $table->id();
-            $table->text('name');
+            $table->text('amount');
             $table->text('email');
-            $table->text('subject');
-            $table->text('message');
-            $table->integer('status')->comment('0= unread,1 =read');
             $table->timestamps();
         });
     }
@@ -31,6 +28,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('contacts');
+        Schema::dropIfExists('pledges');
     }
 };

@@ -18,6 +18,16 @@ Tip 2: you can also add an image using data-image tag
                     <p>{{ __("Dashboard") }}</p>
                 </a>
             </li>
+
+          
+
+            <li class="nav-item @if($activePage == 'partners') active @endif">
+                <a class="nav-link" href="{{route('page.index', 'partners')}}">
+                    <i class="fas fa-users"></i>
+                    <p>{{ __("Partners") }}</p>
+                </a>
+            </li>
+    
     
 
             <li class="nav-item @if($activePage == 'headerandabout') active @endif">
@@ -66,6 +76,14 @@ Tip 2: you can also add an image using data-image tag
                     <p>{{ __("Footer") }}</p>
                 </a>
             </li>
+
+            <li class="nav-item @if($activePage == 'others') active @endif">
+                <a class="nav-link" href="{{route('page.index', 'others')}}">
+                    <i class="nc-icon nc-stre-down"></i>
+                    <p>{{ __("Others") }}</p>
+                </a>
+            </li>
+         
          
         
         </ul>
