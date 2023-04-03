@@ -31,7 +31,7 @@ Add
   <div class="modal-body">
     <input type="hidden" name="table" value="events">
     <h6>Photo</h6>
-        <input type="file" required name="photofile" class="form-control" />
+        <input type="file" required name="photofile[]" class="form-control"  multiple/>
 
         <br>
         <h6>Date of Event</h6>
@@ -69,6 +69,7 @@ Add
   <th scope="col">Date of Event</th>
   <th scope="col">Title</th>
   <th scope="col">Description</th>
+  <th scope="col">status</th>
   <th scope="col">Action</th>
 </tr>
 </thead>
@@ -80,12 +81,55 @@ $events = DB::select('SELECT * FROM `events`');
         <tr>
             <td>{{$key + 1}}</td>
             <td>
-                <img src="assets/img/{{$item->photo}}" style="width:200px;height:200px" alt=""> 
+              <div id="carouselExampleControls" class="carousel slide" data-ride="carousel">
+                <div class="carousel-inner">
+                  @php
+                  $allphoto = DB::select('SELECT * FROM `photos` where fkid = '.$item->id.' and photo_type ="events" ');
+                  @endphp
+                  @foreach ($allphoto as $key => $pp)
+                        @if($key == 0)
+                        <div class="carousel-item active">
+                          <img class="d-block" style="width: 200px;height:200px" src="{{asset('assets/img/'.$pp->photos)}}" alt="First slide">
+                        </div>
+                        @else 
+                        <div class="carousel-item">
+                          <img class="d-block " style="width: 200px;height:200px" src="{{asset('assets/img/'.$pp->photos)}}" alt="Second slide">
+                        </div>
+                        @endif
+                  @endforeach
+               
+                </div>
+                <a class="carousel-control-prev" href="#carouselExampleControls" role="button" data-slide="prev">
+                  <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                  <span class="sr-only">Previous</span>
+                </a>
+                <a class="carousel-control-next" href="#carouselExampleControls" role="button" data-slide="next">
+                  <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                  <span class="sr-only">Next</span>
+                </a>
+              </div> 
             </td>
             <td><input type="date" data-table="events" data-entity="dateofevent" data-id="{{$item->id}}" class="form-control updateonmove" value="{{$item->dateofevent}}"></td>
             <td><textarea name="" data-table="events" data-entity="title" data-id="{{$item->id}}" class="form-control updateonmove" id="" cols="30" rows="10">{{$item->title}}</textarea></td>
             <td><textarea name="" data-table="events" data-entity="desc" data-id="{{$item->id}}" class="form-control updateonmove" id="" cols="30" rows="10">{{$item->desc}}</textarea></td>
-            <td><button data-id="{{$item->id}}" data-table="events" class="btn btn-sm btn-danger delete"><i class="fas fa-trash-can"></i></button></td>
+            <td>
+              @if($item->publish)
+              <span class="badge bg-success" style="text-transform:uppercase">Published</span>
+              @else 
+              <span class="badge bg-danger" style="text-transform:uppercase">Unpublish</span>
+              @endif
+            </td>
+            <td>
+              <form action="{{route('changestatus')}}" method="post">@csrf
+                <input type="hidden" name="type" value="events">
+                <input type="hidden" name="id" value="{{$item->id}}">
+                @if($item->publish)
+               <button class="btn btn-light text-danger btn-sm" type="submit" name="pb" value="0">Unpublish</button>
+                @else 
+                <button class="btn btn-light  btn-sm" style="color:green" type="submit" name="pb" value="1">Publish</button>
+                @endif
+              </form>
+              <button data-id="{{$item->id}}" data-table="events" class="btn btn-sm btn-danger delete"><i class="fas fa-trash-can"></i></button></td>
         </tr>
 @endforeach
 

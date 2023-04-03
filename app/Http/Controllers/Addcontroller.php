@@ -10,39 +10,67 @@ use App\Models\Team;
 use App\Models\Partners;
 use App\Models\Pledges;
 use App\Models\Contacts;
+use App\Models\photos;
+use App\Models\category;
 
 
 class Addcontroller extends Controller
 {
    public function addall(Request $request){
+    
      $table= $request->table;
     
      switch ($table) {
         case 'blogs':
+      
             $title = $request->title;
-            $subtitle = $request->subtitle;
-            $file = $request->photofile;
-            $file->move(public_path('assets/img'),$file->getClientOriginalName());
-            Blogs::create([
-                'photo'=>$file->getClientOriginalName(),
-                'subtitle'=>$subtitle,
+            $category = $request->category;
+            $description= $request->description;
+            $save = Blogs::create([
                 'title'=>$title,
                 'dateblog'=>date('Y-m-d'),
+                'publish'=>0,
+                'category'=>$category,
+                'description'=>$description
             ]);
-            
+
+            $file = $request->photofile;
+
+            foreach($file as $item){
+             $item->move(public_path('assets/img'),$item->getClientOriginalName());
+             photos::create([
+               'photos'=>$item->getClientOriginalName(),
+                'fkid'=>$save->id, 
+                'photo_type'=>'blogs'
+             ]);
+
+            }
+             
             break;
             case 'events':
               $dateofevent = $request->dateofevent;
               $title=$request->title;
               $desc = $request->desc;
-              $file = $request->photofile;
-              $file->move(public_path('assets/img'),$file->getClientOriginalName());
-              Events::create([
-                'photo' => $file->getClientOriginalName(),
+        
+              $save = Events::create([
                 'dateofevent' =>$dateofevent,
                 'title'=>$title,
                 'desc'=>$desc,
+                'publish'=>0
               ]);
+
+
+              $file = $request->photofile;
+
+              foreach($file as $item){
+               $item->move(public_path('assets/img'),$item->getClientOriginalName());
+               photos::create([
+                 'photos'=>$item->getClientOriginalName(),
+                  'fkid'=>$save->id, 
+                  'photo_type'=>'events'
+               ]);
+  
+              }
                
             break;
 
@@ -79,6 +107,12 @@ class Addcontroller extends Controller
                     'linkedin' =>$linkedin
                 ]);
             break;
+
+            case 'category':
+              category::create([
+                'category'=>'New Category'
+              ]);
+              break;
       
      }
      return redirect()->back()->with('success','Item Added Successfully!');
@@ -344,5 +378,30 @@ class Addcontroller extends Controller
       'status'=>1
     ]);
     echo "success";
+   }
+
+   public function changestatus(Request $request){
+    $type = $request->type;
+    $pb = $request->pb;
+    $id = $request->id;
+
+
+    switch ($type) {
+      case 'blogs':
+        Blogs::findorFail($id)->update([
+          'publish'=>$pb
+        ]);
+        break;
+
+      case 'events':
+        Events::findorFail($id)->update([
+          'publish'=>$pb
+        ]);
+        break;
+
+    }
+
+
+    return redirect()->back()->with('success','Item updated Successfully!');
    }
 }

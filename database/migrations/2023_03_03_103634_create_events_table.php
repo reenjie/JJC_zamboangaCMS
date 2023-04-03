@@ -15,10 +15,10 @@ return new class extends Migration
     {
         Schema::create('events', function (Blueprint $table) {
             $table->id();
-            $table->text('photo');
             $table->date('dateofevent');
             $table->text('title');
             $table->text('desc');
+            $table->integer('publish')->comment('0-draft , 1 -published ');
             $table->timestamps();
         });
     }

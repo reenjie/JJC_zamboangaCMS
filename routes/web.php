@@ -51,6 +51,7 @@ Route::post('saveMembership','App\Http\Controllers\Addcontroller@membership')->n
 
 Route::post('saveMessage','App\Http\Controllers\Addcontroller@sendmessage')->name('saveMessage');
 
+Route::post('changestatus','App\Http\Controllers\Addcontroller@changestatus')->name('changestatus');
 
 Route::get('readmessage','App\Http\Controllers\Addcontroller@readmessage')->name('readmessage');
 

@@ -148,31 +148,10 @@ class headerandAboutusSeeder extends Seeder
             'linkedin'=>""
         ]);
 
-        for ($i=0; $i < 3 ;$i++) { 
-            Blogs::create([
-                'photo'=>"awww.jpg",
-                'subtitle'=>"Funds",
-                'title' =>"Dolorum optio tempore voluptas dignissimos",
-                'dateblog' =>date('Y-m-d'),
-            ]);
-        }
+     
        
     
-        for ($i=0; $i < 4; $i++) { 
-            Events::create([
-                'photo'=>"awww.jpg",
-                'dateofevent'=>date('Y-m-d'),
-                'title'=>"Eco Drive Event",
-                'desc'=>"Lorem ipsum dolor sit amet consectetur adipisicing elit. Debitisa",
-            ]);
     
-            Project::create([
-                'photo'=>"awww.jpg",
-                'title' =>"Eco Drive Event",
-                'desc'  =>"Lorem ipsum dolor sit amet consectetur adipisicing elit. Debitisa"
-            ]);
-        }
-        
 
         Description::create([
             'desctype'=>"Recent Blog Post",
