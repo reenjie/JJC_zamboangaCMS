@@ -164,57 +164,105 @@ $description = DB::select('SELECT * FROM `descriptions`');
       </div>
 
       <div class="row gy-4">
-        @php
+     
+
+        <div class="col-md-8">
+          <div id="carousel-indicator" class="carousel slide" data-bs-ride="carousel">
+            <div class="carousel-indicators">
+                <button type="button" data-bs-target="#carousel-indicator" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+                <button type="button" data-bs-target="#carousel-indicator" data-bs-slide-to="1" aria-label="Slide 2"></button>
+                <button type="button" data-bs-target="#carousel-indicator" data-bs-slide-to="2" aria-label="Slide 3"></button>
+            </div>
+          <div class="carousel-inner">
+            {{-- @php
+            $allphoto = DB::select('SELECT * FROM `photos` where fkid = '.$item->id.' and photo_type ="events" ');
+            @endphp
+            @foreach ($allphoto as $key => $pp)
+                  @if($key == 0)
+                  <div class="carousel-item active">
+                    <img class="d-block" style="width: 100%;height:300px" src="{{asset('assets/img/'.$pp->photos)}}" alt="First slide">
+                  </div>
+                  @else 
+                  <div class="carousel-item">
+                    <img class="d-block " style="width: 200px;height:300px" src="{{asset('assets/img/'.$pp->photos)}}" alt="Second slide">
+                  </div>
+                  @endif
+            @endforeach --}}
+
+            </div> 
+
+            <button class="carousel-control-prev" type="button" data-bs-target="#carousel-indicator" data-bs-slide="prev">
+                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Previous</span>
+            </button>
+            <button class="carousel-control-next" type="button" data-bs-target="#carousel-indicator" data-bs-slide="next">
+                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Next</span>
+            </button>
+
+          </div>
+          <h1>Title</h1>
+          <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Pariatur numquam explicabo rerum et sed aperiam atque velit quae nam ea, animi eum vitae itaque ratione iusto, quis omnis dolores ut.</p>
+        </div>
+        <div class="col-md-4">
+         <div class="">
+          <div class="" style="height:400px;overflow-y:scroll">
+            @php
             $blogs = DB::select('SELECT * FROM `blogs`');
         @endphp
         @foreach ($blogs as $item)
-        <div class="col-xl-4 col-md-6">
-          <article>
-            <div id="carousel-indicator" class="carousel slide" data-bs-ride="carousel">
-              <div class="carousel-indicators">
-                  <button type="button" data-bs-target="#carousel-indicator" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
-                  <button type="button" data-bs-target="#carousel-indicator" data-bs-slide-to="1" aria-label="Slide 2"></button>
-                  <button type="button" data-bs-target="#carousel-indicator" data-bs-slide-to="2" aria-label="Slide 3"></button>
-              </div>
-              <div class="carousel-inner">
-                  <div class="carousel-item active">
-                      <img src="assets/img/{{$item->photo}}" class="d-block w-100" alt="...">
-                  </div>
-                  <div class="carousel-item">
-                      <img src="assets/img/{{$item->photo}}" class="d-block w-100" alt="...">
-                  </div>
-                  <div class="carousel-item">
-                      <img src="assets/img/{{$item->photo}}" class="d-block w-100" alt="...">
-                  </div>
-              </div>
+      
+          <div class="card mb-2 shadow" >
+            <div class="card-body" style="display:flex;">
 
-              <button class="carousel-control-prev" type="button" data-bs-target="#carousel-indicator" data-bs-slide="prev">
-                  <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                  <span class="visually-hidden">Previous</span>
-              </button>
-              <button class="carousel-control-next" type="button" data-bs-target="#carousel-indicator" data-bs-slide="next">
-                  <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                  <span class="visually-hidden">Next</span>
-              </button>
+            @php
+            $allphoto = DB::select('SELECT * FROM `photos` where fkid = '.$item->id.' and photo_type ="blogs" ');
+            @endphp
+            @foreach ($allphoto as $key => $pp)
+                  @if($key == 0)
+                  <img class="d-block" style="width: 100px;height:100px" src="{{asset('assets/img/'.$pp->photos)}}" alt="First slide">
+                 
+                  @endif
+            @endforeach
+            <div class="">
+           
+              <h2 class="title">
+                <a href="blog-details.html">{{$item->title}}</a>
+                <br>
+                @php
+                     
+        $cat = DB::select('SELECT * FROM `categories` ');
+    
 
-            </div><!-- End Slides with indicators -->
-            <p class="post-category">{{$item->subtitle}}</p>
-            <h2 class="title">
-              <a href="blog-details.html">{{$item->title}}</a>
-            </h2>
-            <p class="post-date">
-              <time datetime="2022-01-01">{{date('F j,Y',strtotime($item->dateblog))}}</time>
-            </p>
-          </article>
-        </div><!-- End post list item -->
+                @endphp
+                <p class="post-category" style="font-size:14px;font-weight:normal">
+                  @foreach ($cat as $ll)
+                  @if($ll->id == $item->category)
+                 {{$ll->category}}
+                  @endif
+               
+               
+                  @endforeach
+                </p>
+              </h2>
+              <p class="post-date">
+                <time datetime="2022-01-01">{{date('F j,Y',strtotime($item->dateblog))}}</time>
+              </p>
+            </div>
+            </div>
+          </div>
+        
         @endforeach
+          </div>
+         </div>
+        </div>
    
 
 
 
      
       </div><!-- End post list item -->
-      <a href="blog.html" class="btn-large">See More</a>
+   
     </div><!-- End recent posts list -->
   </section><!-- End Recent Blog Posts Section -->
 
@@ -236,7 +284,39 @@ $description = DB::select('SELECT * FROM `descriptions`');
         <div class="col-lg-3 col-md-6">
           <article>
             <div class="post-img">
-              <img src="assets/img/{{$item->photo}}" alt="" class="img-fluid">
+              <div id="carousel-indicator" class="carousel slide" data-bs-ride="carousel">
+                <div class="carousel-indicators">
+                    <button type="button" data-bs-target="#carousel-indicator" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+                    <button type="button" data-bs-target="#carousel-indicator" data-bs-slide-to="1" aria-label="Slide 2"></button>
+                    <button type="button" data-bs-target="#carousel-indicator" data-bs-slide-to="2" aria-label="Slide 3"></button>
+                </div>
+              <div class="carousel-inner">
+                @php
+                $allphoto = DB::select('SELECT * FROM `photos` where fkid = '.$item->id.' and photo_type ="events" ');
+                @endphp
+                @foreach ($allphoto as $key => $pp)
+                      @if($key == 0)
+                      <div class="carousel-item active">
+                        <img class="d-block" style="width: 100%;height:300px" src="{{asset('assets/img/'.$pp->photos)}}" alt="First slide">
+                      </div>
+                      @else 
+                      <div class="carousel-item">
+                        <img class="d-block " style="width: 200px;height:300px" src="{{asset('assets/img/'.$pp->photos)}}" alt="Second slide">
+                      </div>
+                      @endif
+                @endforeach
+                </div> 
+  
+                <button class="carousel-control-prev" type="button" data-bs-target="#carousel-indicator" data-bs-slide="prev">
+                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                    <span class="visually-hidden">Previous</span>
+                </button>
+                <button class="carousel-control-next" type="button" data-bs-target="#carousel-indicator" data-bs-slide="next">
+                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                    <span class="visually-hidden">Next</span>
+                </button>
+  
+              </div>
             </div>
             <p class="post-date">
               <time datetime="2022-01-01">{{date('F j,Y',strtotime($item->created_at))}}</time>
