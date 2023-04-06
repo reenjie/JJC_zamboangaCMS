@@ -180,29 +180,29 @@
                      <div class="row">
                         <div class="col-md-6">
                             <h4>Pledge Form</h4>
+                            <h6>Type of Donation:</h6>
+
                             <h6>Pledge Amount</h6>
-                            <input type="number" class="form-control" required name="amount">
+                            <input type="number" class="form-control"  name="amount">
+                            <span style="font-size:12px;color:maroon">Disregard if donation is Goods</span>
                         </div>
                         <div class="col-md-6"></div>
 
-                        <div class="col-md-12 mb-2 mt-2">
-                            <h6>Full Name <span style="font-size:13px">( On the card )</span></h6>
-                            <input type="text" class="form-control">
+                        <div class="col-md-6 mb-2 mt-2">
+                            <h6>Type of Goods</h6>
+                            <input type="text" name="typeofgoods" class="form-control">
+                        </div>
+
+                        <div class="col-md-6 mb-2 mt-2">
+                            <h6>Quantity </h6>
+                            <input type="number" name="Qty" class="form-control" >
                         </div>
 
                         <div class="col-md-12 mb-2">
-                            <h6>Card Number </h6>
-                            <input type="number" class="form-control" >
+                            <h6>Notes : </h6>
+                           <textarea name="notes" id="" cols="30" rows="10" class="form-control"></textarea>
                         </div>
-
-                        <div class="col-md-8 mb-2">
-                            <h6>Expiration</h6>
-                            <input type="text" placeholder="MM" class="form-control" >
-                        </div>
-                        <div class="col-md-4 mb-2">
-                            <h6>CVV</h6>
-                            <input type="text" placeholder="***" class="form-control">
-                        </div>
+                      
                         
                      </div>
                     </div>

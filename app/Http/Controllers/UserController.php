@@ -48,7 +48,7 @@ class UserController extends Controller
         ]);
       
        }
-       return redirect()->back()->with('success','User Added Successfully!');
-      
+      return redirect()->back()->with('success','User Added Successfully!');
+     
     }
 }

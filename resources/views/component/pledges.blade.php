@@ -38,10 +38,20 @@
                                 <div class="card-body">
                                     <span style="font-size:13px;float:right">{{date('F j,Y',strtotime($row->created_at))}}</span>
                                     <br>
+                                    @if($row->amount)
                                     <h6>Amount:</h6>
                                   
                                     &#8369;{{$row->amount}}
-                                    
+                                    @endif
+                                
+                                    @if($row->goods)
+                                    <h5>Goods</h5>
+                                    <h6>{{$row->goods}}
+                                    <br/>
+                                    <span style="font-size:10px">qty: {{$row->qty}}</span>
+                                    </h6>
+                                    <p>Note: {{$row->notes}}</p>
+                                    @endif
                                 </div>
                               </div>
                         </div>

@@ -33,6 +33,9 @@ Route::get('/home', 'App\Http\Controllers\HomeController@index')->name('dashboar
 Route::post('subscribe','App\Http\Controllers\HeaderandAboutController@subscribe')->name('subscribe');
 
 
+Route::get('sendconfirm','App\Http\Controllers\Mailcontroller@sendConfirm')->name('sendConfirm');
+
+
 Route::post('addvideolink','App\Http\Controllers\HeaderandAboutController@storevideo')->name('addvideolink');
 
 Route::get('viewblogs','App\Http\Controllers\HeaderandAboutController@viewblogs')->name('viewblogs');

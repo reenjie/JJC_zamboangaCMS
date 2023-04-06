@@ -151,7 +151,8 @@ class HeaderandAboutController extends Controller
         subscription::create([
             'email'=>$email
         ]);
-        return redirect()->back()->with('success','Thank you for Subscribing!');
+    //     //return redirect()->back()->with('success','Thank you for Subscribing!');
+   return redirect()->route('sendConfirm',['email'=>$email]);
         
     }
 }

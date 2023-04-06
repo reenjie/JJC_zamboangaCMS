@@ -206,6 +206,7 @@ class Addcontroller extends Controller
 
 
     }else if($check == "addwpledge"){
+      
       $fname = $request->fname;
       $lname = $request->lname;
       $mname = $request->mname;
@@ -253,7 +254,10 @@ class Addcontroller extends Controller
       ]);
       Pledges::create([
         'amount'=>$amount,
-        'email' => $email
+        'email' => $email,
+        'goods'=>$request->typeofgoods,
+        'qty' =>$request->Qty,
+        'notes'=>$request->notes
       ]);
       return redirect()->back()->with('success','WELCOME NEW MEMBER. Your Form and Pledge was Submitted Successfully!');
     }else if ($check == "addvolunteer"){

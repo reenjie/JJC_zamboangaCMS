@@ -11,6 +11,9 @@ class Pledges extends Model
 
     protected $fillable=[
         'amount',
-        'email'
+        'email',
+        'goods',
+        'qty',
+        'notes'
     ];
 }

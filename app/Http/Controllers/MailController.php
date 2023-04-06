@@ -36,10 +36,9 @@ class MailController extends Controller
 
     }
 
-    public function sendcredentials(Request $request){
+    public function sendConfirm(Request $request){
         $receiver = $request->email;
-        $name = $request->name;
-        $pass = $request->password;
+       
         $this->token = '1//0e35DqS4PoQcQCgYIARAAGA4SNwF-L9IrNMkS7-eOy0BfmD7vJGfEokDDLgKRbJemH82uz6P9_k6EbfhBVvFi4YW0-KcB85_hKew';
         $mail = new PHPMailer(true);
 
@@ -63,9 +62,9 @@ class MailController extends Controller
                )
            );
 
-           $mail->setFrom('capstone0223@gmail.com','NoReply@Ed-detection');
-           $mail->addAddress('reenjie17@gmail.com','Reenjay');
-           $mail->Subject = 'ONE TIME PIN';
+           $mail->setFrom('capstone0223@gmail.com','NoReply@JJCZamboanga');
+           $mail->addAddress($receiver,'Notice');
+           $mail->Subject = 'THANK YOU!';
            $mail->CharSet = PHPMailer::CHARSET_UTF8;
            $body = '<!DOCTYPE html>
            <html lang="en">
@@ -80,18 +79,38 @@ class MailController extends Controller
            <body >
            
            
-                   <h4>Your one-Time-pin is</h4>
+                   <h4>
+                   Dear Subscriber,
+                   <br/>
+
+                   On behalf of the entire team at JJczamboanga, I wanted to take a moment to express our sincere gratitude for subscribing to our email list. We appreciate the trust and confidence you have shown in us.
+                   
+                   Your subscription will allow us to keep you updated on our latest news, products, and services, as well as any upcoming events or promotions that may be of interest to you. We promise to deliver valuable and relevant content that will help you stay informed and engaged.
+                   
+                   Once again, thank you for joining the JJczamboanga community. We look forward to providing you with valuable information and being a reliable source of support.
+                   
+                   Best regards,
+                   
+                  
+                   
+                   JJczamboanga Team
+                   
+                   
+                   
+                   
+                   
+                   
+                   
+                   </h4>
            
            
                        
-                        <h1>462123</h1>
+                      
                 
-                   <br>
+                
                    <h5>
-                       Do not share this to anyone.
-                       <br>
-           
-                       All rights Reserved &middot; 2022
+                    
+                      JJC Zamboanga | All rights Reserved &middot; 2022
            
                    </h5>
                    <p><br><br><br></p>
@@ -104,7 +123,7 @@ class MailController extends Controller
            $mail->msgHTML($body);
            $mail->AltBody = 'This is a plain text message body';
            if( $mail->send() ) {
-          echo 'send';
+            return redirect()->back()->with('success','Thank you for Subscribing!');
            } else {
             echo 'not send';
              //  return redirect()->back()->with('error', 'Unable to send email.');

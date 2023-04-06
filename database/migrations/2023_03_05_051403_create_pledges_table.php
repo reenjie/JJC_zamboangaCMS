@@ -15,7 +15,10 @@ return new class extends Migration
     {
         Schema::create('pledges', function (Blueprint $table) {
             $table->id();
-            $table->text('amount');
+            $table->text('amount')->nullable();
+            $table->text('goods')->nullable();
+            $table->text('qty')->nullable();
+            $table->text('notes')->nullable();
             $table->text('email');
             $table->timestamps();
         });
