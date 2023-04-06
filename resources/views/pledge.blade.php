@@ -78,13 +78,14 @@
                               <input type="text" required name="fname" class="ekis form-control" placeholder="First Name" id="first-name">
                           </div>
                           <div class="col-md-4">
+                            <label for="middle-name" class="form-label">Middle Name</label>
+                            <input type="text" required name="mname" class="ekis form-control" placeholder="Middle Name" id="middle-name">
+                        </div>
+                          <div class="col-md-4">
                               <label for="last-name" class="form-label">Last Name</label>
                               <input type="text" required name="lname" class="ekis form-control" placeholder="Last Name" id="last-name">
                           </div>
-                          <div class="col-md-4">
-                              <label for="middle-name" class="form-label">Middle Name</label>
-                              <input type="text" required name="mname" class="ekis form-control" placeholder="Middle Name" id="middle-name">
-                          </div>
+                         
                           <div class="col-md-2">
                               <label for="date-of-birth" class="form-label">Date of Birth</label>
                               <input type="date" name="dob" required class="ekis form-control" id="date-of-birth">
@@ -117,8 +118,9 @@
                             <label for="age" class="form-label">Age</label>
                             <select id="age" required name="age" class="form-select ekis">
                               <option selected>Choose...</option>
-                              <option>14</option>
-                              <option>...</option>
+                              @for($i = 15; $i <= 24; $i++)
+                              <option value="{{$i}}">{{$i}}</option>
+                              @endfor
                             </select>
                           </div>
         

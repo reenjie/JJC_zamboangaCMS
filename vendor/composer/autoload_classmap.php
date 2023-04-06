@@ -59,6 +59,7 @@ return array(
     'App\\Models\\User' => $baseDir . '/app/Models/User.php',
     'App\\Models\\category' => $baseDir . '/app/Models/category.php',
     'App\\Models\\photos' => $baseDir . '/app/Models/photos.php',
+    'App\\Models\\subscription' => $baseDir . '/app/Models/subscription.php',
     'App\\Providers\\AppServiceProvider' => $baseDir . '/app/Providers/AppServiceProvider.php',
     'App\\Providers\\AuthServiceProvider' => $baseDir . '/app/Providers/AuthServiceProvider.php',
     'App\\Providers\\BroadcastServiceProvider' => $baseDir . '/app/Providers/BroadcastServiceProvider.php',

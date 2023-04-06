@@ -1,6 +1,6 @@
-
-<div class="table-responsive">
-    <table class="table">
+<button class="btn btn-primary mt-5" id="printpagepartner"><i class="fas fa-print"></i></button>
+<div class="table-responsive " id="printpartner">
+    <table class="table" id="partnership">
         <thead>
           <tr class="table-info">
             <th scope="col">#</th>
@@ -35,3 +35,15 @@
         </tbody>
       </table>
 </div>
+
+
+<script>
+  $('#printpagepartner').click(function(){
+      var printcontent = $('#printpartner').clone();
+var popup = window.open("", "Print Preview", "width=800,height=600");
+popup.document.open();
+popup.document.write("<html><head><title>Print Preview</title></head><body><h4>JJC - PARTNERSHIPS</h4> " + printcontent.html() + "</body></html>");
+popup.document.close();
+popup.print();
+  })
+</script>

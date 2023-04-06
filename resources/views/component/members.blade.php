@@ -1,6 +1,6 @@
-
-<div class="table-responsive">
-    <table class="table">
+<button class="btn btn-primary mt-5"  id="printpagemember"><i class="fas fa-print"></i></button>
+<div class="table-responsive " id="printmember">
+    <table class="table" id="member">
         <thead>
           <tr class="table-info">
             <th scope="col">#</th>
@@ -18,7 +18,7 @@
         </thead>
         <tbody>
            @php
-               $members = DB::select('SELECT * FROM `partners`');
+               $members = DB::select('SELECT * FROM `partners` where members = 1 ');
            @endphp
     @foreach ($members as $key => $item)
             <tr>
@@ -38,3 +38,15 @@
         </tbody>
       </table>
 </div>
+
+<script>
+  $('#printpagemember').click(function(){
+    var printcontent = $('#printmember').clone();
+  var popup = window.open("", "Print Preview", "width=800,height=600");
+  popup.document.open();
+  popup.document.write("<html><head><title>Print Preview</title></head><body> <h4>JJC - MEMBERS</h4> " + printcontent.html() + "</body></html>");
+  popup.document.close();
+  popup.print();
+  })
+</script>
+

@@ -54,7 +54,7 @@
                   <input type="hidden" name="check" value="add" id="check">
                   <div class="col-md-12">
                     <label for="first-name" class="form-label">Email</label>
-                    <input type="email" required name="email" class="form-control" placeholder="First Name" id="first-name">
+                    <input type="email" required name="email" class="form-control" placeholder="E-mail" id="first-name">
                 </div>
                   <div class="col-md-4">
                       <label for="first-name" class="form-label">First Name</label>
@@ -98,10 +98,11 @@
                   </div>
                   <div class="col-md-2">
                     <label for="age" class="form-label">Age</label>
-                    <select id="age" required name="age" class="form-select">
+                    <select id="age" required name="age" class="form-select ekis">
                       <option selected>Choose...</option>
-                      <option>14</option>
-                      <option>...</option>
+                      @for($i = 15; $i <= 24; $i++)
+                      <option value="{{$i}}">{{$i}}</option>
+                      @endfor
                     </select>
                   </div>
 

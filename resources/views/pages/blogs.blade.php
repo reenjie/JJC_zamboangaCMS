@@ -23,7 +23,7 @@
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">Add Blogs</h5>
+        <h5 class="modal-title" id="exampleModalLabel">Add Post</h5>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
@@ -36,7 +36,8 @@
             <input type="file" required name="photofile[]" class="form-control" multiple/>
             <br>
             <h6>Title</h6>
-            <textarea name="title" required class="form-control" id="" cols="30" rows="10"></textarea>
+            <textarea   class="form-control" id="textarea1" cols="30" rows="10"></textarea>
+            <input type="hidden" required id="texta1" name="title">
         <br>
         <h6>Category</h6>
         @php
@@ -51,12 +52,13 @@
     </select>
 
     <h6>Description</h6>
-    <textarea name="description" required class="form-control" id="" cols="30" rows="10"></textarea>
+    <textarea name="description"  class="form-control" id="textarea2" cols="30" rows="10"></textarea>
+    <input type="hidden" id="texta2" name="title">
       
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-        <button type="submit" class="btn btn-primary">Save changes</button>
+        <button type="submit" class="btn btn-primary">Create Post</button>
       </div>
     </form>
     </div>
@@ -121,8 +123,8 @@
                         </a>
                       </div>
                     </td>
-                    <td><textarea name="" data-table="blogs" data-entity="title" data-id="{{$item->id}}" class="form-control updateonmove" id="" cols="30" rows="10">{{$item->title}}</textarea></td>
-                    <td><textarea name="" data-table="blogs" data-entity="description" data-id="{{$item->id}}" class="form-control updateonmove" id="" cols="30" rows="10">{{$item->description}}</textarea></td>
+                    <td><textarea name="" data-table="blogs" data-entity="title" data-id="{{$item->id}}" class="form-control updateonmove" id="" cols="30" rows="10">{{strip_tags($item->title)}}</textarea></td>
+                    <td><textarea name="" data-table="blogs" data-entity="description" data-id="{{$item->id}}" class="form-control updateonmove" id="" cols="30" rows="10">{{strip_tags($item->description)}}</textarea></td>
                   
                     <td>
                     
@@ -179,7 +181,26 @@
         </div>
     </div>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.3/jquery.min.js" integrity="sha512-STof4xm1wgkfm7heWqFJVn58Hm3EtS31XFaagaa8VMReCXAkQnJZ+jEy8PCC/iT18dFy95WcExNHFTqLyp72eQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-  
+    
+    <script>
+      
+ const editor1 = ClassicEditor.create( document.querySelector( '#textarea1' ) ).then( editor => {
+ myEditor = editor;
+myEditor.model.document.on( 'change:data', () => {
+const editorContent = editor.getData();
+$('#texta1').val(editorContent);
+});
+});
+
+const editor2 = ClassicEditor.create( document.querySelector( '#textarea2' ) ).then( editor => {
+ myEditor = editor;
+myEditor.model.document.on( 'change:data', () => {
+const editorContent = editor.getData();
+$('#texta2').val(editorContent);
+});
+});
+
+    </script>
     <script>
         $('.delete').click(function(){
             var id = $(this).data('id');

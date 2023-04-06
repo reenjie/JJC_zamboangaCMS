@@ -26,14 +26,16 @@ Route::get('/home', 'App\Http\Controllers\HomeController@index')->name('dashboar
 
 
 
+
 /* ======================================================================== */
 
 
-
+Route::post('subscribe','App\Http\Controllers\HeaderandAboutController@subscribe')->name('subscribe');
 
 
 Route::post('addvideolink','App\Http\Controllers\HeaderandAboutController@storevideo')->name('addvideolink');
 
+Route::get('viewblogs','App\Http\Controllers\HeaderandAboutController@viewblogs')->name('viewblogs');
 
 Route::post('savePhoto','App\Http\Controllers\HeaderandAboutController@savePhoto')->name('savePhoto');
 
@@ -54,6 +56,7 @@ Route::post('saveMessage','App\Http\Controllers\Addcontroller@sendmessage')->nam
 Route::post('changestatus','App\Http\Controllers\Addcontroller@changestatus')->name('changestatus');
 
 Route::get('readmessage','App\Http\Controllers\Addcontroller@readmessage')->name('readmessage');
+
 
 
 

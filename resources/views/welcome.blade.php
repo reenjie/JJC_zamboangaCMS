@@ -14,8 +14,8 @@ $description = DB::select('SELECT * FROM `descriptions`');
   <div class="container position-relative">
     <div class="row gy-5" data-aos="fade-in">
       <div class="col-lg-6 order-2 order-lg-1 d-flex flex-column justify-content-center text-center text-lg-start">
-        <h2>{{$headers[0]->welcome_message}}</span></h2>
-        <p>{{$headers[0]->welcome_desc}}</p>
+        <h2>{!! $headers[0]->welcome_message !!}</span></h2>
+        <p>{!! $headers[0]->welcome_desc !!}</p>
         <div class="d-flex justify-content-center justify-content-lg-start">
           <a href="https://www.facebook.com/plugins/video.php?height=314&href=https%3A%2F%2Fwww.facebook.com%2Fjjczamboanga2021%2Fvideos%2F3038624199732640%2F&show_text=false&width=560&t=0"  class="glightbox btn-watch-video d-flex align-items-center"><i class="bi bi-play-circle"></i><span>Watch Video</span></a>
         </div>
@@ -82,22 +82,22 @@ $description = DB::select('SELECT * FROM `descriptions`');
 
       <div class="row content">
         <div class="col-lg-6">
-          <h4>{{$aboutus[0]->title}}</h4>
+          <h4>{!! $aboutus[0]->title !!}</h4>
           <p>
-            <span>{{$aboutus[0]->subtitle}}</span>  <br> <br> 
-            {{$aboutus[0]->desc}}<br>
+            <span>{!! $aboutus[0]->subtitle !!}</span>  <br> <br> 
+            {!! $aboutus[0]->desc !!}<br>
           </p>
         </div>
 
         <div class="col-lg-6 pt-4 pt-lg-0">
           <h4>MISSION</h4>
           <p>
-            {{$aboutus[0]->mission_desc}}
+            {!! $aboutus[0]->mission_desc!!}
           </p>
           
           <h4>VISION</h4>
           <p>
-           {{$aboutus[0]->vision_desc}}
+           {!!$aboutus[0]->vision_desc!!}
           </p>
           <a href="#" class="btn-learn">Learn More</a>
         </div>
@@ -166,43 +166,8 @@ $description = DB::select('SELECT * FROM `descriptions`');
       <div class="row gy-4">
      
 
-        <div class="col-md-8">
-          <div id="carousel-indicator" class="carousel slide" data-bs-ride="carousel">
-            <div class="carousel-indicators">
-                <button type="button" data-bs-target="#carousel-indicator" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
-                <button type="button" data-bs-target="#carousel-indicator" data-bs-slide-to="1" aria-label="Slide 2"></button>
-                <button type="button" data-bs-target="#carousel-indicator" data-bs-slide-to="2" aria-label="Slide 3"></button>
-            </div>
-          <div class="carousel-inner">
-            {{-- @php
-            $allphoto = DB::select('SELECT * FROM `photos` where fkid = '.$item->id.' and photo_type ="events" ');
-            @endphp
-            @foreach ($allphoto as $key => $pp)
-                  @if($key == 0)
-                  <div class="carousel-item active">
-                    <img class="d-block" style="width: 100%;height:300px" src="{{asset('assets/img/'.$pp->photos)}}" alt="First slide">
-                  </div>
-                  @else 
-                  <div class="carousel-item">
-                    <img class="d-block " style="width: 200px;height:300px" src="{{asset('assets/img/'.$pp->photos)}}" alt="Second slide">
-                  </div>
-                  @endif
-            @endforeach --}}
-
-            </div> 
-
-            <button class="carousel-control-prev" type="button" data-bs-target="#carousel-indicator" data-bs-slide="prev">
-                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                <span class="visually-hidden">Previous</span>
-            </button>
-            <button class="carousel-control-next" type="button" data-bs-target="#carousel-indicator" data-bs-slide="next">
-                <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                <span class="visually-hidden">Next</span>
-            </button>
-
-          </div>
-          <h1>Title</h1>
-          <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Pariatur numquam explicabo rerum et sed aperiam atque velit quae nam ea, animi eum vitae itaque ratione iusto, quis omnis dolores ut.</p>
+        <div class="col-md-8" id="blogview">
+   
         </div>
         <div class="col-md-4">
          <div class="">
@@ -210,9 +175,9 @@ $description = DB::select('SELECT * FROM `descriptions`');
             @php
             $blogs = DB::select('SELECT * FROM `blogs`');
         @endphp
-        @foreach ($blogs as $item)
+        @foreach ($blogs as $k => $item)
       
-          <div class="card mb-2 shadow" >
+          <div class="card mb-2 shadow  itemselect" data-key="{{$k}}" data-id="{{$item->id}}" id="blogs{{$k}}" style="cursor: pointer;">
             <div class="card-body" style="display:flex;">
 
             @php
@@ -272,7 +237,7 @@ $description = DB::select('SELECT * FROM `descriptions`');
 
       <div class="section-header">
         <h2>Latest Events</h2>
-        <p>{{$description[1]->desc}}</p>
+        <p>{!!$description[1]->desc!!}</p>
       </div>
 
       <div class="row gy-4" data-aos="fade-up" data-aos-delay="100">
@@ -322,9 +287,9 @@ $description = DB::select('SELECT * FROM `descriptions`');
               <time datetime="2022-01-01">{{date('F j,Y',strtotime($item->created_at))}}</time>
             </p>
             <h3 class="title">
-              <a href="event-details.html">{{$item->title}}</a>
+              <a href="event-details.html">{!!$item->title!!}</a>
             </h3>
-            <p class="event-description">{{$item->desc}}</p>
+            <p class="event-description">{!!$item->desc!!}</p>
             <div class="buttons d-grid gap-2">
               <button class="btn btn-primary" type="button">Attend</button>
               <button class="btn btn-primary" onclick="window.location.href='{{route('membershipform',['page'=>'volunteer'])}}'" type="button">Volunteer</button>
@@ -368,9 +333,9 @@ $description = DB::select('SELECT * FROM `descriptions`');
               <time datetime="2022-01-01">{{date('F j,Y',strtotime($item->created_at))}}</time>
             </p>
             <h3 class="title">
-              <a href="blog-details.html">{{$item->title}}</a>
+              <a href="blog-details.html">{!!$item->title!!}</a>
             </h3>
-            <p class="project-description">{{$item->desc}}</p>
+            <p class="project-description">{!!$item->desc!!}</p>
             <div class="buttons d-grid gap-2">
               <button class="btn btn-primary" type="button">Pledge</button>
               <button class="btn btn-primary" onclick="window.location.href='{{route('membershipform',['page'=>'volunteer'])}}'" type="button">Volunteer</button>
@@ -511,6 +476,7 @@ $description = DB::select('SELECT * FROM `descriptions`');
   </section><!-- End Contact Section -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.3/jquery.min.js" integrity="sha512-STof4xm1wgkfm7heWqFJVn58Hm3EtS31XFaagaa8VMReCXAkQnJZ+jEy8PCC/iT18dFy95WcExNHFTqLyp72eQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
   <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
   @if(session()->has('successsent'))
   <script>
     Swal.fire(
@@ -520,6 +486,54 @@ $description = DB::select('SELECT * FROM `descriptions`');
         )
 </script>
   @endif
+
+  <script>
+var myItem = localStorage.getItem('selected');
+if (myItem == null) {
+  localStorage.setItem('selected', 0);
+} 
+$('#blogview').html('<div style="text-align:center;" class="mt-5"><i style="font-size:50px;" class="fas fa-spinner fa-pulse text-primary"></i></div>');
+ 
+$('#blogs'+myItem).addClass('border border-primary');
+
+
+
+$.ajax({
+  url: '{{route("viewblogs")}}',
+  method: 'GET',
+  data: {id:$('#blogs'+myItem).data('id')},
+  success: function(response) {
+    $('#blogview').html(response);
+  },
+  error: function(jqXHR, textStatus, errorThrown) {
+    // Handle the error here
+  }
+});
+
+$('.itemselect').click(function(){
+  var key = $(this).data('key');
+  var id  = $(this).data('id');
+  localStorage.setItem('selected', key);
+  $('.itemselect').removeClass('border border-primary');
+  $(this).addClass('border border-primary');
+  $('#blogview').html('<div style="text-align:center;" class="mt-5"><i style="font-size:50px;" class="fas fa-spinner fa-pulse text-primary"></i></div>');
+ 
+
+ $.ajax({
+  url: '{{route("viewblogs")}}',
+  method: 'GET',
+  data: {id:id},
+  success: function(response) {
+    $('#blogview').html(response);
+  },
+  error: function(jqXHR, textStatus, errorThrown) {
+    // Handle the error here
+  }
+});
+})
+
+
+  </script>
 
   <!-- ======= Partners Section ======= -->
   
@@ -560,5 +574,6 @@ $description = DB::select('SELECT * FROM `descriptions`');
     </div>
   </section>
   <!-- End Partners Section -->
+
 @endsection
 

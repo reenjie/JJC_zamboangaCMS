@@ -6,6 +6,10 @@
 
 import './bootstrap';
 import { createApp } from 'vue';
+import tinymce from './components/TinyMCE.vue';
+
+Vue.component('TinyMCE', tinymce);
+
 
 /**
  * Next, we will create a fresh Vue application instance. You may then begin

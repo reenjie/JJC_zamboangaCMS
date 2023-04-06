@@ -117,8 +117,9 @@
                             <label for="age" class="form-label">Age</label>
                             <select id="age" required name="age" class="form-select ekis">
                               <option selected>Choose...</option>
-                              <option>14</option>
-                              <option>...</option>
+                              @for($i = 15; $i <= 24; $i++)
+                              <option value="{{$i}}">{{$i}}</option>
+                              @endfor
                             </select>
                           </div>
         

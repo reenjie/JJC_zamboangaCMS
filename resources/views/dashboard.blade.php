@@ -3,7 +3,7 @@
 @section('content')
     <div class="content">
         @php
-        $members = DB::select('select * from partners');
+        $members = DB::select('select * from partners where members = 1');
         $pledge  = DB::select('select * from pledges');
         $volunteers = DB::select('select * from partners where volunteer = 1');
         $partner    = DB::select('select * from partners where partnership = 1');

@@ -48,12 +48,14 @@ class Addcontroller extends Controller
              
             break;
             case 'events':
-              $dateofevent = $request->dateofevent;
+              $datestart = $request->datestart;
+              $dateend = $request->dateend;
               $title=$request->title;
               $desc = $request->desc;
         
               $save = Events::create([
-                'dateofevent' =>$dateofevent,
+                'startdate' =>$datestart,
+                'enddate'=>$dateend,
                 'title'=>$title,
                 'desc'=>$desc,
                 'publish'=>0
@@ -237,7 +239,7 @@ class Addcontroller extends Controller
           'age'=>$age,
           'placeofbirth'=>$pob,
           'address'=>$ad1.' ,'.$ad2.' ,'.$ad3.'  ,'.$ad4,
-          'members'=>1,
+          'members'=>0,
           'pledges'=>1,
           'volunteer'=>0,
           'partnership'=>0,
@@ -287,7 +289,7 @@ class Addcontroller extends Controller
           'age'=>$age,
           'placeofbirth'=>$pob,
           'address'=>$ad1.' ,'.$ad2.' ,'.$ad3.'  ,'.$ad4,
-          'members'=>1,
+          'members'=>0,
           'pledges'=>0,
           'volunteer'=>1,
           'partnership'=>0,
@@ -334,7 +336,7 @@ class Addcontroller extends Controller
           'age'=>$age,
           'placeofbirth'=>$pob,
           'address'=>$ad1.' ,'.$ad2.' ,'.$ad3.'  ,'.$ad4,
-          'members'=>1,
+          'members'=>0,
           'pledges'=>0,
           'volunteer'=>0,
           'partnership'=>1,

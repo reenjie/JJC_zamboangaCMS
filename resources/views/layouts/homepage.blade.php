@@ -85,19 +85,22 @@
     @php
         $footers = DB::select('SELECT * FROM `footers`');
     @endphp
-    <!-- ======= subscribe Section ======= -->
+    <form action="{{route('subscribe')}}" method="post">
+      @csrf
+        <!-- ======= subscribe Section ======= -->
     <div class="subscribe">
-      <h2 class="subscribe-title">{{$footers[0]->p1}}</h2>
-      <p class="subscribe-desciption">{{$footers[0]->p2}}</p>
+      <h2 class="subscribe-title">{!!$footers[0]->p1!!}</h2>
+      <p class="subscribe-desciption">{!!$footers[0]->p2!!}</p>
       <div class="form">
-        <input type="email" class="subcribe-email" placeholder="Enter your email address" />
+        <input type="email" class="subcribe-email" name="email" placeholder="Enter your email address" />
         <button class="subcribe-button">Subscribe</button>
       </div>
       <div class="notice">
-        <input type="checkbox">
+        <input type="checkbox" required>
         <span class="notice-desciption">I agree to my email address being stored and uses to recieve monthly newsletter.</span>
       </div>
     </div> <!-- =======End subscribe Section ======= -->
+    </form>
 
   </main><!-- End #main -->
 
@@ -226,7 +229,7 @@
             </div>
           </div> <!-- End Send Code Modal -->
           <!-- End Main Modal -->
-          <p>{{$footers[0]->desc}}</p>
+          <p>{!!$footers[0]->desc!!}</p>
         </div>
 
         <div class="col-lg-2 col-6 footer-links">
@@ -253,9 +256,9 @@
           <h4>Contact Us</h4>
           <p>
             <strong>Location:</strong> <br>
-            {{$contactdetails[0]->location}}<br>
-            <strong>Phone:</strong> <br> {{$contactdetails[0]->phonedetails}}<br>
-            <strong>Email:</strong> <br>{{$contactdetails[0]->email}}<br>
+            {!!$contactdetails[0]->location!!}<br>
+            <strong>Phone:</strong> <br> {!!$contactdetails[0]->phonedetails!!}<br>
+            <strong>Email:</strong> <br>{!!$contactdetails[0]->email!!}<br>
           </p>
         </div>
 
@@ -274,7 +277,26 @@
   <a href="#" class="scroll-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
 
   <div id="preloader"></div>
+  
+  @if(session()->has('success'))
+  <script>
+      Swal.fire(
+        'Subscribed Successfully!',
+        '{{session()->get("success")}}',
+        'success'
+        )
+  </script>
+  @endif
 
+  @if(session()->has('duplicate'))
+  <script>
+      Swal.fire(
+        'Thank you!',
+        '{{session()->get("duplicate")}}',
+        'success'
+        )
+  </script>
+  @endif
   <!-- Vendor JS Files -->
   <script src="assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
   <script src="assets/vendor/aos/aos.js"></script>
