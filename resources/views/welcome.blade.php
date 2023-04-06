@@ -173,7 +173,7 @@ $description = DB::select('SELECT * FROM `descriptions`');
          <div class="">
           <div class="" style="height:400px;overflow-y:scroll">
             @php
-            $blogs = DB::select('SELECT * FROM `blogs`');
+            $blogs = DB::select('SELECT * FROM `blogs` where publish = 1');
         @endphp
         @foreach ($blogs as $k => $item)
       
@@ -242,7 +242,7 @@ $description = DB::select('SELECT * FROM `descriptions`');
 
       <div class="row gy-4" data-aos="fade-up" data-aos-delay="100">
         @php
-            $events = DB::select('SELECT * FROM `events`');
+            $events = DB::select('SELECT * FROM `events` where publish = 1');
         @endphp
         @foreach ($events as $item)
               
