@@ -85,10 +85,10 @@ class MailController extends Controller
 
                    On behalf of the entire team at JJczamboanga, I wanted to take a moment to express our sincere gratitude for subscribing to our email list. We appreciate the trust and confidence you have shown in us.
                    
-                   Your subscription will allow us to keep you updated on our latest news, products, and services, as well as any upcoming events or promotions that may be of interest to you. We promise to deliver valuable and relevant content that will help you stay informed and engaged.
+                   Your subscription will allow us to keep you updated on our latest news, products,  <br/> and services, as well as any upcoming events or promotions that may be of interest to you. We promise to deliver valuable and relevant content that will help you stay informed and engaged.
                    
-                   Once again, thank you for joining the JJczamboanga community. We look forward to providing you with valuable information and being a reliable source of support.
-                   
+                   <br/>  <br/>Once again, thank you for joining the JJczamboanga community. We look forward to providing you with valuable information and being a reliable source of support.
+                   <br/>  <br/>
                    Best regards,
                    
                   
