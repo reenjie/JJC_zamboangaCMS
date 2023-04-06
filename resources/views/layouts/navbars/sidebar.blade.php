@@ -83,6 +83,14 @@ Tip 2: you can also add an image using data-image tag
                     <p>{{ __("Others") }}</p>
                 </a>
             </li>
+
+            
+            <li class="nav-item @if($activePage == 'usermanagement') active @endif">
+                <a class="nav-link" href="{{route('page.index', 'usermanagement')}}">
+                    <i class="fas fa-users"></i>
+                    <p>{{ __("User Management") }}</p>
+                </a>
+            </li>
          
          
         

@@ -9,6 +9,7 @@ use App\Models\Project;
 use App\Models\Team;
 use App\Models\photos;
 use App\Models\category;
+use App\Models\User;
 class DeleteController extends Controller
 {
     public function deleteall(Request $request){
@@ -53,6 +54,9 @@ class DeleteController extends Controller
                 break;
             case 'categories':
                 category::findorFail($id)->delete();
+                break;
+            case 'users':
+                User::findorFail($id)->delete();
                 break;
         }
 

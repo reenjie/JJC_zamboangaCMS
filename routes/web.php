@@ -57,6 +57,7 @@ Route::post('changestatus','App\Http\Controllers\Addcontroller@changestatus')->n
 
 Route::get('readmessage','App\Http\Controllers\Addcontroller@readmessage')->name('readmessage');
 
+Route::post('addadmin','App\Http\Controllers\Usercontroller@addadmin')->name('addadmin');
 
 
 
