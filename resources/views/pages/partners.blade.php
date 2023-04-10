@@ -3,6 +3,16 @@
 @section('content')
 <div class="content">
     <div class="container-fluid">
+      @if(session()->has('success'))
+      <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+        <script>
+          swal({
+        title: "Success!",
+        text: "{{session()->get('success')}}",
+        icon: "success",
+      });
+        </script>
+      @endif
         <div class="row">
             <div class="col-md-12">
               <ul class="nav nav-tabs" id="myTab" role="tablist">

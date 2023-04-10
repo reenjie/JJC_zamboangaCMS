@@ -38,6 +38,7 @@ return new class extends Migration
             $table->text('twitter')->nullable();
             $table->text('instagram')->nullable();
             $table->text('linkedin')->nullable();
+            $table->integer('approvedstate')->nullable()->comment('1-approved,2-declined');
             $table->timestamps();
         });
     }

@@ -169,7 +169,7 @@ class Addcontroller extends Controller
         'linkedin'=>$linkedin
     ]);
     
-    return redirect()->back()->with('success','WELCOME NEW MEMBER. Your Form was Submitted Successfully!');
+    return redirect()->back()->with('success','WELCOME NEW MEMBER. Your Form was Submitted and we`ll response to you ASAP!');
     }else if($check == "update"){
 
       $req = Partners::where('email',$email);
@@ -189,7 +189,7 @@ class Addcontroller extends Controller
               'volunteer'=>1
             ]);
 
-            return redirect()->back()->with('success','Your Request to be a Volunteer was Submitted and Granted! ');
+            return redirect()->back()->with('success','Your Request to be a Volunteer was Submitted we`ll response to you ASAP! ');
           }
 
           if($request->parts){
@@ -197,7 +197,7 @@ class Addcontroller extends Controller
               'partnership'=>1
             ]);
 
-            return redirect()->back()->with('success','Your Request to be our Partner was Submitted and Granted! ');
+            return redirect()->back()->with('success','Your Request to be our Partner was Submitted we`ll response to you ASAP! ');
           }
     
       }else {
@@ -259,7 +259,7 @@ class Addcontroller extends Controller
         'qty' =>$request->Qty,
         'notes'=>$request->notes
       ]);
-      return redirect()->back()->with('success','WELCOME NEW MEMBER. Your Form and Pledge was Submitted Successfully!');
+      return redirect()->back()->with('success','WELCOME NEW MEMBER. Your Form and Pledge was Submitted and we will response to you ASAP!');
     }else if ($check == "addvolunteer"){
       $fname = $request->fname;
       $lname = $request->lname;
@@ -306,7 +306,7 @@ class Addcontroller extends Controller
           'linkedin'=>$linkedin
       ]);
       
-      return redirect()->back()->with('success','WELCOME OUR NEW MEMBER AND VOLUNTEER. Your Form was Submitted Successfully!');
+      return redirect()->back()->with('success','WELCOME OUR VOLUNTEER. Your Form was Submitted and we will response to you ASAP!');
     }else if ($check == "addpartnership"){
       $fname = $request->fname;
       $lname = $request->lname;
@@ -353,7 +353,7 @@ class Addcontroller extends Controller
           'linkedin'=>$linkedin
       ]);
       
-      return redirect()->back()->with('success','WELCOME OUR NEW MEMBER AND PARTNER. Your Form was Submitted and Request is Granted!');
+      return redirect()->back()->with('success','WELCOME OUR PARTNER. Your Form was Submitted and we will response to you ASAP!');
     }
    
     

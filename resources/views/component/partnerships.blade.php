@@ -4,6 +4,7 @@
         <thead>
           <tr class="table-info">
             <th scope="col">#</th>
+            <th scope="col">Action</th>
             <th scope="col">Name</th>
             <th scope="col">Date of Birth</th>
             <th scope="col">Gender</th>
@@ -12,6 +13,7 @@
             <th scope="col">Age</th>
             <th scope="col">Place of Birth</th>
             <th scope="col">Address</th>
+       
           </tr>
         </thead>
         <tbody>
@@ -21,6 +23,18 @@
     @foreach ($members as $key => $item)
             <tr>
                 <td>{{$key+1}}</td>
+                <td>
+                  @if($item->approvedstate == 0 || $item->approvedstate == null)
+                   <button class="btn btn-danger btn-sm bg-danger text-light px-4 btndecline" data-id="{{$item->id}}" data-email="{{$item->email}}">Decline  <i class="fas fa-ban"></i></button>
+                   <button class="btn btn-primary btn-sm px-4 btnapprove" data-id="{{$item->id}}" data-email="{{$item->email}}">Approve <i class="fas fa-check-circle"></i></button>
+                 @endif
+
+                 @if($item->approvedstate == 1)
+                  <span class="badge bg-success">Approved</span>
+                 @elseif($item->approvedstate == 2) 
+                 <span class="badge bg-danger">Declined</span>
+                 @endif
+                 </td>
                 <td><span style="font-size:11px">{{$item->email}}</span><br>
                     {{$item->firstname.' '.$item->middlename.' '.$item->lastname}}</td>
                 <td>{{date('F j,Y',strtotime($item->dateofbirth))}}</td>
@@ -30,14 +44,52 @@
                 <td>{{$item->age}}</td>
                 <td>{{$item->placeofbirth}}</td>
                 <td>{{$item->address}}</td>
+               
             </tr>
     @endforeach
         </tbody>
       </table>
 </div>
 
-
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 <script>
+  $('.btndecline').click(function(){
+    var id = $(this).data('id');
+    var email = $(this).data('email');
+     
+    swal({
+  title: "Are you sure?",
+  text: "Once Declined, You will not be able to undone it. ",
+  icon: "warning",
+  buttons: true,
+  dangerMode: true,
+})
+.then((willDelete) => {
+  if (willDelete) {
+    $(this).html('Declining  <i style="text-align:center" class="fas fa-spinner fa-spin"></i>').attr('style','pointer-events:none');
+    window.location.href='{{route("approve")}}?id='+id+'&type=decline&email='+email;
+  } 
+});
+  })
+
+  $('.btnapprove').click(function(){
+    var id = $(this).data('id');
+    var email = $(this).data('email');
+
+    swal({
+  title: "Are you sure?",
+  text: "Once Approved, You will not be able to undone it. ",
+  icon: "warning",
+  buttons: true,
+  dangerMode: true,
+})
+.then((willDelete) => {
+  if (willDelete) {
+    $(this).html('Approving <i style="text-align:center" class="fas fa-spinner fa-spin"></i>').attr('style','pointer-events:none');
+    window.location.href='{{route("approve")}}?id='+id+'&type=approve&email='+email;
+  } 
+});
+  })
   $('#printpagepartner').click(function(){
       var printcontent = $('#printpartner').clone();
 var popup = window.open("", "Print Preview", "width=800,height=600");

@@ -34,7 +34,7 @@ Route::post('subscribe','App\Http\Controllers\HeaderandAboutController@subscribe
 
 
 Route::get('sendconfirm','App\Http\Controllers\Mailcontroller@sendConfirm')->name('sendConfirm');
-
+Route::get('notify','App\Http\Controllers\Mailcontroller@notify')->name('notify');
 
 Route::post('addvideolink','App\Http\Controllers\HeaderandAboutController@storevideo')->name('addvideolink');
 
@@ -63,6 +63,7 @@ Route::get('readmessage','App\Http\Controllers\Addcontroller@readmessage')->name
 Route::post('addadmin','App\Http\Controllers\Usercontroller@addadmin')->name('addadmin');
 
 
+Route::get('approve','App\Http\Controllers\actionController@approve')->name('approve');
 
 /* ======================================================================== */
 

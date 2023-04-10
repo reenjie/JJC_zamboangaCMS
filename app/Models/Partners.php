@@ -31,7 +31,8 @@ class Partners extends Model
         'facebook',
         'twitter',
         'instagram',
-        'linkedin'
+        'linkedin',
+        'approvedstate'
     ];
     
 }
