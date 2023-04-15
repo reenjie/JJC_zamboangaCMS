@@ -17,6 +17,7 @@ return new class extends Migration
             $table->id();
             $table->text('welcome_message');
             $table->text('welcome_desc');
+            $table->text('logo');
             $table->timestamps();
         });
     }

@@ -15,6 +15,6 @@ class Aboutus extends Model
         'desc',
         'mission_desc',
         'vision_desc',
-        'photo',
+
     ];
 }

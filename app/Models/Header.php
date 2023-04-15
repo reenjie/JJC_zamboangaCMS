@@ -11,6 +11,7 @@ class Header extends Model
 
     protected $fillable = [
         'welcome_message',
-        'welcome_desc'
+        'welcome_desc',
+        'logo'
     ];
 }

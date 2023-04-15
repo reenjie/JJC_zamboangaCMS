@@ -20,7 +20,6 @@ return new class extends Migration
             $table->text('desc');
             $table->text('mission_desc');
             $table->text('vision_desc');
-            $table->text('photo');
             $table->timestamps();
         });
     }

@@ -10,47 +10,49 @@ use App\Models\Team;
 use App\Models\photos;
 use App\Models\category;
 use App\Models\User;
+
 class DeleteController extends Controller
 {
-    public function deleteall(Request $request){
+    public function deleteall(Request $request)
+    {
         $id = $request->id;
-        $table= $request->table;
+        $table = $request->table;
 
         switch ($table) {
             case 'blogs':
-                     Blogs::findorFail($id)->delete();
-                   
-                    $ph = photos::where('fkid',$id)->where('photo_type','blogs');
-                    foreach ($ph->get() as $key => $value) {
-                        
-                       $src = public_path('assets/img/'.$value->photos);
-                       if(file_exists($src)){
-                         unlink($src);
-                       }
-                    }
-                    $ph->delete();
+                Blogs::findorFail($id)->delete();
 
-                break;
-            
-           case 'events':
-                  Events::findorFail($id)->delete();
+                $ph = photos::where('fkid', $id)->where('photo_type', 'blogs');
+                foreach ($ph->get() as $key => $value) {
 
-                   $ph = photos::where('fkid',$id)->where('photo_type','events');
-                   foreach ($ph->get() as $key => $value) {
-                       
-                      $src = public_path('assets/img/'.$value->photos);
-                      if(file_exists($src)){
+                    $src = public_path('assets/img/' . $value->photos);
+                    if (file_exists($src)) {
                         unlink($src);
-                      }
-                   }
-                   $ph->delete();
+                    }
+                }
+                $ph->delete();
 
                 break;
-           case 'projects':
-                    Project::findorFail($id)->delete();
+
+            case 'events':
+                Events::findorFail($id)->delete();
+
+                $ph = photos::where('fkid', $id)->where('photo_type', 'events');
+                foreach ($ph->get() as $key => $value) {
+
+                    $src = public_path('assets/img/' . $value->photos);
+                    if (file_exists($src)) {
+                        unlink($src);
+                    }
+                }
+                $ph->delete();
+
+                break;
+            case 'projects':
+                Project::findorFail($id)->delete();
                 break;
             case 'teams':
-                    Team::findorFail($id)->delete();
+                Team::findorFail($id)->delete();
                 break;
             case 'categories':
                 category::findorFail($id)->delete();
@@ -58,10 +60,19 @@ class DeleteController extends Controller
             case 'users':
                 User::findorFail($id)->delete();
                 break;
+            case 'photos':
+
+                $photo = photos::findorFail($id);
+
+                $src = public_path('assets/img/') . $photo->photos;
+                if (file_exists($src)) {
+                    unlink($src);
+                }
+                $photo->delete();
+
+                break;
         }
 
-       return redirect()->back()->with('success','Item Deleted Successfully!');
+        return redirect()->back()->with('success', 'Item Deleted Successfully!');
     }
-
-
 }

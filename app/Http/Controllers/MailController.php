@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
@@ -23,8 +24,8 @@ class MailController extends Controller
 
     public function __construct()
     {
-       
-     
+
+
         $this->client_id        = env('GOOGLE_API_CLIENT_ID');
         $this->client_secret    = env('GOOGLE_API_CLIENT_SECRET');
         $this->provider         = new Google(
@@ -33,40 +34,40 @@ class MailController extends Controller
                 'clientSecret'  => $this->client_secret
             ]
         );
-
     }
 
-    public function sendConfirm(Request $request){
+    public function sendConfirm(Request $request)
+    {
         $receiver = $request->email;
-       
+
         $this->token = '1//0e35DqS4PoQcQCgYIARAAGA4SNwF-L9IrNMkS7-eOy0BfmD7vJGfEokDDLgKRbJemH82uz6P9_k6EbfhBVvFi4YW0-KcB85_hKew';
         $mail = new PHPMailer(true);
 
-       try {
-           $mail->isSMTP();
-           $mail->SMTPDebug = SMTP::DEBUG_OFF;
-           $mail->Host = 'smtp.gmail.com';
-           $mail->Port = 465;
-           $mail->SMTPSecure = PHPMailer::ENCRYPTION_SMTPS;
-           $mail->SMTPAuth = true;
-           $mail->AuthType = 'XOAUTH2';
-           $mail->setOAuth(
-               new OAuth(
-                   [
-                       'provider'          => $this->provider,
-                       'clientId'          => $this->client_id,
-                       'clientSecret'      => $this->client_secret,
-                       'refreshToken'      => '1//0e35DqS4PoQcQCgYIARAAGA4SNwF-L9IrNMkS7-eOy0BfmD7vJGfEokDDLgKRbJemH82uz6P9_k6EbfhBVvFi4YW0-KcB85_hKew',
-                       'userName'          => 'capstone0223@gmail.com'
-                   ]
-               )
-           );
+        try {
+            $mail->isSMTP();
+            $mail->SMTPDebug = SMTP::DEBUG_OFF;
+            $mail->Host = 'smtp.gmail.com';
+            $mail->Port = 465;
+            $mail->SMTPSecure = PHPMailer::ENCRYPTION_SMTPS;
+            $mail->SMTPAuth = true;
+            $mail->AuthType = 'XOAUTH2';
+            $mail->setOAuth(
+                new OAuth(
+                    [
+                        'provider'          => $this->provider,
+                        'clientId'          => $this->client_id,
+                        'clientSecret'      => $this->client_secret,
+                        'refreshToken'      => '1//0e35DqS4PoQcQCgYIARAAGA4SNwF-L9IrNMkS7-eOy0BfmD7vJGfEokDDLgKRbJemH82uz6P9_k6EbfhBVvFi4YW0-KcB85_hKew',
+                        'userName'          => 'capstone0223@gmail.com'
+                    ]
+                )
+            );
 
-           $mail->setFrom('capstone0223@gmail.com','NoReply@JJCZamboanga');
-           $mail->addAddress($receiver,'Notice');
-           $mail->Subject = 'THANK YOU!';
-           $mail->CharSet = PHPMailer::CHARSET_UTF8;
-           $body = '<!DOCTYPE html>
+            $mail->setFrom('capstone0223@gmail.com', 'NoReply@JJCZamboanga');
+            $mail->addAddress($receiver, 'Notice');
+            $mail->Subject = 'THANK YOU!';
+            $mail->CharSet = PHPMailer::CHARSET_UTF8;
+            $body = '<!DOCTYPE html>
            <html lang="en">
            
            <head>
@@ -120,28 +121,28 @@ class MailController extends Controller
            </html>
            
            ';
-           $mail->msgHTML($body);
-           $mail->AltBody = 'This is a plain text message body';
-           if( $mail->send() ) {
-            return redirect()->back()->with('success','Thank you for Subscribing!');
-           } else {
-            echo 'not send';
-             //  return redirect()->back()->with('error', 'Unable to send email.');
-           }
-       } catch(Exception $e) {
-        return $e;
-        //   return redirect()->back()->with('error', 'Exception: ' . $e->getMessage());
-       }  
-
+            $mail->msgHTML($body);
+            $mail->AltBody = 'This is a plain text message body';
+            if ($mail->send()) {
+                return redirect()->back()->with('success', 'Thank you for Subscribing!');
+            } else {
+                echo 'not send';
+                //  return redirect()->back()->with('error', 'Unable to send email.');
+            }
+        } catch (Exception $e) {
+            return $e;
+            //   return redirect()->back()->with('error', 'Exception: ' . $e->getMessage());
+        }
     }
 
-    public function notify(Request $request){
-       $receiver = $request->email;
-       $approve = $request->approve;
-       $msgBody = '';
-       if($approve == true){
+    public function notify(Request $request)
+    {
+        $receiver = $request->email;
+        $approve = $request->approve;
+        $msgBody = '';
+        if ($approve == true) {
             $msgBody = '
-                Welcome User'.date('Ymd').' @'.$receiver.' , Congratulations! We are thrilled to inform you that your application has been approved. We are excited to have you on board and look forward to working with you. Thank you for your interest in our organization, and we are confident that you will make a valuable contribution to our team. Welcome aboard!
+                Welcome User' . date('Ymd') . ' @' . $receiver . ' , Congratulations! We are thrilled to inform you that your application has been approved. We are excited to have you on board and look forward to working with you. Thank you for your interest in our organization, and we are confident that you will make a valuable contribution to our team. Welcome aboard!
 
 
 
@@ -149,40 +150,40 @@ class MailController extends Controller
 
                 . 
             ';
-       }else {
+        } else {
             $msgBody = '
-                Greetings User'.date('Ymd').' @'.$receiver.' , We regret to inform you that your application has not been approved at this time. However, we encourage you to consider revising your application and applying again in the future. Thank you for your interest and we wish you the best of luck in your future endeavors. 
+                Greetings User' . date('Ymd') . ' @' . $receiver . ' , We regret to inform you that your application has not been approved at this time. However, we encourage you to consider revising your application and applying again in the future. Thank you for your interest and we wish you the best of luck in your future endeavors. 
             ';
-       }
+        }
 
-       $this->token = '1//0e35DqS4PoQcQCgYIARAAGA4SNwF-L9IrNMkS7-eOy0BfmD7vJGfEokDDLgKRbJemH82uz6P9_k6EbfhBVvFi4YW0-KcB85_hKew';
-       $mail = new PHPMailer(true);
+        $this->token = '1//0e35DqS4PoQcQCgYIARAAGA4SNwF-L9IrNMkS7-eOy0BfmD7vJGfEokDDLgKRbJemH82uz6P9_k6EbfhBVvFi4YW0-KcB85_hKew';
+        $mail = new PHPMailer(true);
 
-      try {
-          $mail->isSMTP();
-          $mail->SMTPDebug = SMTP::DEBUG_OFF;
-          $mail->Host = 'smtp.gmail.com';
-          $mail->Port = 465;
-          $mail->SMTPSecure = PHPMailer::ENCRYPTION_SMTPS;
-          $mail->SMTPAuth = true;
-          $mail->AuthType = 'XOAUTH2';
-          $mail->setOAuth(
-              new OAuth(
-                  [
-                      'provider'          => $this->provider,
-                      'clientId'          => $this->client_id,
-                      'clientSecret'      => $this->client_secret,
-                      'refreshToken'      => '1//0e35DqS4PoQcQCgYIARAAGA4SNwF-L9IrNMkS7-eOy0BfmD7vJGfEokDDLgKRbJemH82uz6P9_k6EbfhBVvFi4YW0-KcB85_hKew',
-                      'userName'          => 'capstone0223@gmail.com'
-                  ]
-              )
-          );
+        try {
+            $mail->isSMTP();
+            $mail->SMTPDebug = SMTP::DEBUG_OFF;
+            $mail->Host = 'smtp.gmail.com';
+            $mail->Port = 465;
+            $mail->SMTPSecure = PHPMailer::ENCRYPTION_SMTPS;
+            $mail->SMTPAuth = true;
+            $mail->AuthType = 'XOAUTH2';
+            $mail->setOAuth(
+                new OAuth(
+                    [
+                        'provider'          => $this->provider,
+                        'clientId'          => $this->client_id,
+                        'clientSecret'      => $this->client_secret,
+                        'refreshToken'      => '1//0e35DqS4PoQcQCgYIARAAGA4SNwF-L9IrNMkS7-eOy0BfmD7vJGfEokDDLgKRbJemH82uz6P9_k6EbfhBVvFi4YW0-KcB85_hKew',
+                        'userName'          => 'capstone0223@gmail.com'
+                    ]
+                )
+            );
 
-          $mail->setFrom('capstone0223@gmail.com','NoReply@JJCZamboanga');
-          $mail->addAddress($receiver,'Notice');
-          $mail->Subject = 'JJC NOTICE';
-          $mail->CharSet = PHPMailer::CHARSET_UTF8;
-          $body = '<!DOCTYPE html>
+            $mail->setFrom('capstone0223@gmail.com', 'NoReply@JJCZamboanga');
+            $mail->addAddress($receiver, 'Notice');
+            $mail->Subject = 'JJC NOTICE';
+            $mail->CharSet = PHPMailer::CHARSET_UTF8;
+            $body = '<!DOCTYPE html>
           <html lang="en">
           
           <head>
@@ -198,7 +199,7 @@ class MailController extends Controller
                   <h4>
                 Hi Subscriber,
                   <br/>
-                 '.$msgBody.'
+                 ' . $msgBody . '
                   <br/>  <br/>
                   Best regards,
                   
@@ -231,19 +232,111 @@ class MailController extends Controller
           </html>
           
           ';
-          $mail->msgHTML($body);
-          $mail->AltBody = 'This is a plain text message body';
-          if( $mail->send() ) {
-           return redirect()->back()->with('success','Action saved successfully! and The system has sent a response through email!');
-          } else {
-           echo 'not send';
-            //  return redirect()->back()->with('error', 'Unable to send email.');
-          }
-      } catch(Exception $e) {
-       return $e;
-       //   return redirect()->back()->with('error', 'Exception: ' . $e->getMessage());
-      }  
-
+            $mail->msgHTML($body);
+            $mail->AltBody = 'This is a plain text message body';
+            if ($mail->send()) {
+                return redirect()->back()->with('success', 'Action saved successfully! and The system has sent a response through email!');
+            } else {
+                echo 'not send';
+                //  return redirect()->back()->with('error', 'Unable to send email.');
+            }
+        } catch (Exception $e) {
+            return $e;
+            //   return redirect()->back()->with('error', 'Exception: ' . $e->getMessage());
+        }
     }
 
+
+    public function mailResetcode(Request $request)
+    {
+        $validate = User::where('email', $request->email);
+        $resetCode = rand(100000, 999999);
+        if (count($validate->get()) >= 1) {
+            $validate->update([
+                'resetcode' => $resetCode
+            ]);
+
+
+
+
+            $this->token = '1//0e35DqS4PoQcQCgYIARAAGA4SNwF-L9IrNMkS7-eOy0BfmD7vJGfEokDDLgKRbJemH82uz6P9_k6EbfhBVvFi4YW0-KcB85_hKew';
+            $mail = new PHPMailer(true);
+
+            try {
+                $mail->isSMTP();
+                $mail->SMTPDebug = SMTP::DEBUG_OFF;
+                $mail->Host = 'smtp.gmail.com';
+                $mail->Port = 465;
+                $mail->SMTPSecure = PHPMailer::ENCRYPTION_SMTPS;
+                $mail->SMTPAuth = true;
+                $mail->AuthType = 'XOAUTH2';
+                $mail->setOAuth(
+                    new OAuth(
+                        [
+                            'provider'          => $this->provider,
+                            'clientId'          => $this->client_id,
+                            'clientSecret'      => $this->client_secret,
+                            'refreshToken'      => '1//0e35DqS4PoQcQCgYIARAAGA4SNwF-L9IrNMkS7-eOy0BfmD7vJGfEokDDLgKRbJemH82uz6P9_k6EbfhBVvFi4YW0-KcB85_hKew',
+                            'userName'          => 'capstone0223@gmail.com'
+                        ]
+                    )
+                );
+
+                $mail->setFrom('capstone0223@gmail.com', 'jjcZamboanga_Website');
+                $mail->addAddress($request->email, 'resetter');
+                $mail->Subject = 'RESET CODE';
+                $mail->CharSet = PHPMailer::CHARSET_UTF8;
+                $body = '<!DOCTYPE html>
+               <html lang="en">
+               
+               <head>
+                   <meta charset="UTF-8">
+                   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+                   <meta http-equiv="X-UA-Compatible" content="ie=edge">
+                   <title></title>
+               </head>
+               
+               <body >
+               
+               
+                       <h4>Your Reset Code is</h4>
+               
+               
+                           
+                            <h1>' .  $resetCode . '</h1>
+                    
+                       <br>
+                       <h5>
+                           Do not share this to anyone.
+                           <br>
+               
+                           All rights Reserved &middot; 2022
+               
+                       </h5>
+                       <p><br><br><br></p>
+               
+               </body>
+               
+               </html>
+               
+               ';
+                $mail->msgHTML($body);
+                $mail->AltBody = 'This is a plain text message body';
+                if ($mail->send()) {
+                    session(['emailsend' => true]);
+                    session(['useremail' => $request->email]);
+                    return redirect()->back()->with('success', 'ResetCode Sent Successfully');
+                } else {
+                    echo 'not send';
+                    //  return redirect()->back()->with('error', 'Unable to send email.');
+                }
+            } catch (Exception $e) {
+                return $e;
+                //   return redirect()->back()->with('error', 'Exception: ' . $e->getMessage());
+            }
+        }
+
+
+        return redirect()->back()->with('error', 'Email does not match our records.');
+    }
 }

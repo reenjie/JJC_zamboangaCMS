@@ -22,6 +22,7 @@ return new class extends Migration
             $table->text('twitter');
             $table->text('instagram');
             $table->text('linkedin');
+            $table->integer('dump')->comment('0-active,1-inactive');
             $table->timestamps();
         });
     }

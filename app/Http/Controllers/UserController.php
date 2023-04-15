@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
+
 use Illuminate\Http\Request;
 use App\Models\User;
 use App\Http\Requests\UserRequest;
@@ -18,37 +19,68 @@ class UserController extends Controller
     {
         return view('users.index', ['users' => $model->paginate(15)]);
     }
-    public function addadmin(Request $request){
-       $username = $request->username;
-       $useremail = $request->useremail;
-       $userrole = $request->userrole;
-       $userpass = $request->userpass;
+    public function addadmin(Request $request)
+    {
+        $username = $request->username;
+        $useremail = $request->useremail;
+        $userrole = $request->userrole;
+        $userpass = $request->userpass;
 
-    
 
-       $valid = User::where('role',1)->get();
 
-       if(count($valid)>=1){
-        if($userrole == $valid[0]->role){
-         return redirect()->back()->with('error','User role already Exist!');
+        $valid = User::where('role', 1)->get();
+
+        if (count($valid) >= 1) {
+            if ($userrole == $valid[0]->role) {
+                return redirect()->back()->with('error', 'User role already Exist!');
+            }
+
+            User::create([
+                'name' => $username,
+                'email' => $useremail,
+                'password' => Hash::make($userpass),
+                'role' => $userrole,
+            ]);
+        } else {
+            User::create([
+                'name' => $username,
+                'email' => $useremail,
+                'password' => Hash::make($userpass),
+                'role' => $userrole,
+            ]);
+        }
+        return redirect()->back()->with('success', 'User Added Successfully!');
+    }
+
+    public function confirmcode(Request $request)
+    {
+        $email = session()->get('useremail');
+
+        $newpass = $request->newpass;
+        $resetcode = $request->resetcode;
+
+        $validate = User::where('email', $email);
+        if ($validate->get()[0]->resetcode == $resetcode) {
+
+
+            session(['codematch' => true]);
+            session()->forget('emailsend');
+            return redirect()->Back();
+            //     return redirect()->route('login')->with('success', 'Password Changed Successfully!');
         }
 
-        User::create([
-            'name'=>$username,
-            'email'=>$useremail,
-            'password'=>Hash::make($userpass),
-            'role'=>$userrole,
+        return redirect()->Back()->with('error', 'reset code does not match');
+    }
+    public function changepass(Request $request)
+    {
+        $email = session()->get('useremail');
+        $password = $request->password;
+        $confirmpass = $request->confirmpass;
+
+        User::where('email', $email)->update([
+            'password' => Hash::make($password),
         ]);
-       }else {
-        User::create([
-            'name'=>$username,
-            'email'=>$useremail,
-            'password'=>Hash::make($userpass),
-            'role'=>$userrole,
-        ]);
-      
-       }
-      return redirect()->back()->with('success','User Added Successfully!');
-     
+
+        return redirect()->route('login')->with('success', 'Password Changed Successfully!');
     }
 }
