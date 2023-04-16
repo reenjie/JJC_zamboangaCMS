@@ -12,6 +12,7 @@ Tip 2: you can also add an image using data-image tag
             </a>
         </div>
         <ul class="nav">
+            @if(Auth::user()->role != 3)
             <li class="nav-item @if($activePage == 'dashboard') active @endif">
                 <a class="nav-link" href="{{route('dashboard')}}">
                     <i class="nc-icon nc-chart-pie-36"></i>
@@ -27,8 +28,6 @@ Tip 2: you can also add an image using data-image tag
                     <p>{{ __("Partners") }}</p>
                 </a>
             </li>
-    
-    
 
             <li class="nav-item @if($activePage == 'headerandabout') active @endif">
                 <a class="nav-link" href="{{route('page.index', 'headerandabout')}}">
@@ -36,6 +35,12 @@ Tip 2: you can also add an image using data-image tag
                     <p>{{ __("Header & AboutUS") }}</p>
                 </a>
             </li>
+
+            @endif
+    
+    
+
+         
             <li class="nav-item @if($activePage == 'blogs') active @endif">
                 <a class="nav-link" href="{{route('page.index', 'blogs')}}">
                     <i class="nc-icon nc-paper-2"></i>
@@ -70,6 +75,8 @@ Tip 2: you can also add an image using data-image tag
                 </a>
             </li>
 
+            @if(Auth::user()->role != 3)
+
             <li class="nav-item @if($activePage == 'footer') active @endif">
                 <a class="nav-link" href="{{route('page.index', 'footer')}}">
                     <i class="nc-icon nc-stre-down"></i>
@@ -84,16 +91,20 @@ Tip 2: you can also add an image using data-image tag
                 </a>
             </li>
 
-            
+            @if(Auth::user()->role != 2)
             <li class="nav-item @if($activePage == 'usermanagement') active @endif">
                 <a class="nav-link" href="{{route('page.index', 'usermanagement')}}">
                     <i class="fas fa-users"></i>
                     <p>{{ __("User Management") }}</p>
                 </a>
             </li>
+            @endif
+
+            @endif
          
-         
-        
+          
         </ul>
     </div>
 </div>
+
+

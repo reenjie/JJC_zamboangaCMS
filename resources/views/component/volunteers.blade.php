@@ -40,7 +40,7 @@
                 <td>{{$item->gender}}</td>
                 <td>{{$item->status}}</td>
                 <td>{{$item->religion}}</td>
-                <td>{{$item->age}}</td>
+                <td>{{date('Y') - date('Y',strtotime($item->dateofbirth))}}</td>
                 <td>{{$item->placeofbirth}}</td>
                 <td>{{$item->address}}</td>
             </tr>

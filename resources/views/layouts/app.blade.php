@@ -33,11 +33,122 @@
     <div class="@if (auth()->check() && request()->route()->getName() != "") main-panel @endif">
       @include('layouts.navbars.navbar')
       @yield('content')
+      @if(Auth::check())
+      @if(Auth::user()->fl == '')
+   
+      <div class="modal fade" id="changepass" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" data-backdrop="static" data-keyboard="false">
+        <div class="modal-dialog" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+          
+            </div>
+            <div class="modal-body">
+              <h6 class="text-danger">This might be your first login, Please change your password.</h6>
+
+              <form method="POST" action="{{ route('changepass') }}">
+                @csrf
+             
+
+                        <div class="form-group text-center">
+
+
+                            <label for="email" class="col-md-4 col-form-label " style="font-size: 13px">{{ __('New Password') }}</label>
+
+
+                            <div class="col-md-12">
+                                <input type="password" style="text-align: center;" class="form-control xx @if(session()->has('error'))
+                            is-invalid
+                            @endif" name="password" value="{{ old('email') }}" id="np" required autocomplete="email" autofocus>
+
+
+                            </div>
+
+                            <label for="email" class="col-md-4 col-form-label " style="font-size: 13px">{{ __('Confirm Password') }}</label>
+                            <div class="col-md-12">
+                                <input type="password" id="cp" style="text-align: center;" class="form-control xx @if(session()->has('error'))
+                            is-invalid
+                            @endif" name="confirmpass" value="{{ old('email') }}" required autocomplete="email" disabled>
+
+
+                            </div>
+                            <input type="checkbox" id="check">
+                            <label style="font-size: 13px" for="check">Show Password</label>
+                        </div>
+
+
+                        <div class="form-group row mb-0 d-flex justify-content-center">
+                            <div class="offset-md-4">
+                                <button type="submit" class="btn btn-primary btn-wd" id="submit" disabled>
+                                    {{ __('SUBMIT') }}
+                                </button>
+                            </div>
+                        </div>
+
+            </form>
+            </div>
+            <div class="modal-footer">
+              <!-- Add your custom footer buttons here -->
+            </div>
+          </div>
+        </div>
+      </div>
+     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.4/jquery.min.js" integrity="sha512-pumBsjNRGGqkPzKHndZMaAG+bir374sORyzM3uulLV14lN5LyykqNk8eEeUlUkB3U0M4FApyaHraT65ihJhDpQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+     <script>
+      $(document).ready(function(){
+        $('#changepass').modal('show');
+        $('#check').click(function() {
+                            if ($(this).prop('checked') == true) {
+                                $('.xx').attr('type', 'text');
+                            } else {
+                                $('.xx').attr('type', 'password');
+                            }
+                        })
+
+                        $('#np').keyup(function() {
+                            if ($(this).val() == '') {
+                                $('#cp').attr('disabled', true);
+                                $('#cp').val('');
+                                $('#submit').attr('disabled', true);
+
+                            } else if ($('#cp').val()) {
+
+                                if ($('#np').val() == $('#cp').val()) {
+                                    $('#submit').attr('disabled', true);
+                                }
+                            } else {
+                                $('#cp').removeAttr('disabled');
+                            }
+
+
+                        })
+
+                        $('#cp').keyup(function() {
+                            var np = $('#np').val();
+                            var cp = $(this).val();
+
+                            if (np == '') {
+                                $(this).attr('disabled', true)
+                                $(this).val('');
+                                $('#submit').attr('disabled', true);
+                            } else
+
+                            if (np == cp) {
+                                $('#submit').removeAttr('disabled');
+                            } else {
+                                $('#submit').attr('disabled', true);
+                            }
+                        })
+      })
+  
+     </script>
+     @endif
+   @endif
       @include('layouts.footer.nav')
     </div>
 
   </div>
 
+        
 
 
 </body>

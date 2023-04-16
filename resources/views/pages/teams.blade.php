@@ -9,14 +9,16 @@
         <div class="card strpied-tabled-with-hover">
           <div class="card-header ">
             <h4 class="card-title">Teams</h4>
-            <p class="card-category">Manage Informations</p>
+            @if(Auth::user()->role != 3)  <p class="card-category">Manage Informations</p> @endif
           </div>
           <div class="card-body ">
             <!-- Button trigger modal -->
+            @if(Auth::user()->role != 3)
             <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
               Add
             </button>
 
+            @endif
             <!-- Modal -->
             <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
               <div class="modal-dialog" role="document">
@@ -78,7 +80,9 @@
             @php
             $activeteam = DB::select('SELECT * FROM `teams` where dump = 0');
             $inactiveteam = DB::select('SELECT * FROM `teams` where dump = 1');
-            @endphp
+            @endphp 
+
+@if(Auth::user()->role != 3)
 
             <ul class="nav nav-tabs" id="myTab" role="tablist">
               <li class="nav-item">
@@ -225,7 +229,9 @@
               </div>
 
             </div>
-
+            @else 
+            @include('pages.includes.userteams')
+            @endif
 
 
 

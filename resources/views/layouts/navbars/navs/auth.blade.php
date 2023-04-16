@@ -8,15 +8,39 @@
         </button>
         <div class="collapse navbar-collapse justify-content-end" id="navigation">
             <ul class="nav navbar-nav mr-auto">
-              <span style="margin-left:5px;color:gray"> | CMS</span>
+              <span style="margin-left:5px;color:gray"> @if(Auth::user()->role != 3) | CMS @endif</span>
+              @if(Auth::user()->role == 3)
+                @isset($hide)
+                @else
+
+              @php
+                $blogs = DB::select('SELECT * FROM `blogs` WHERE publish = 1 and  created_at >= DATE_SUB(NOW(), INTERVAL 2 DAY)');
+                $events = DB::Select('SELECT * FROM `events` WHERE publish = 1 and  created_at >= DATE_SUB(NOW(), INTERVAL 2 DAY)');
+                $projects = DB::Select('SELECT * FROM `projects` WHERE   created_at >= DATE_SUB(NOW(), INTERVAL 2 DAY)')
+            @endphp
+                
+              <li class="nav-item">
+                <a class="nav-link " href="{{route('page.index', 'notifypage')}}">
+                  <button type="button" class="btn  @if(count($blogs)>=1 || count($events)>=1 || count($projects)>=1 )  btn-danger @else btn-secondary @endif btn-sm" style="float:right;font-size:11px;text-transform:uppercase">
+                   Notifications 
+
+                   @if(count($blogs)>=1 || count($events)>=1)  <span class="badge badge-danger">{{count($blogs) + count($events) + count($projects) }}</span> @else  @endif
+                  </button>
+                </a>
+            </li>
+            @endisset
+            @endif
             </ul>
+            
             @php
                 $messages = DB::select('select * from contacts where status =0 ');
                 $allmessages = DB::select('select * from contacts order by created_at desc');
             @endphp
+          
             <ul class="navbar-nav   d-flex align-items-center">
-                <button style="float:right" id="openmessages" data-toggle="modal" data-target="#viewmessage" class="btn btn-sm btn-primary  ">Messages <span class="badge badge-danger @if(count($messages)== 0) d-none @endif">{{count($messages)}}</span></button>
-         
+               
+                <button style="float:right;font-size:12px" id="openmessages" data-toggle="modal" data-target="#viewmessage" class="btn btn-sm btn-primary  ">Messages <span class="badge badge-danger @if(count($messages)== 0) d-none @endif">{{count($messages)}}</span></button>
+                
   
   <!-- Modal -->
   <div class="modal fade" id="viewmessage" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -59,6 +83,8 @@
       </div>
     </div>
   </div>
+  
+  
                 <li class="nav-item">
                     <a class="nav-link" href=" {{route('profile.edit') }} ">
                         <span class="no-icon">{{ __('Account') }}</span>

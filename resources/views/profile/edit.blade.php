@@ -25,7 +25,22 @@
                                 
                                 @include('alerts.success')
                                 @include('alerts.error_self_update', ['key' => 'not_allow_profile'])
-        
+                            <div class="mb-3">
+                                @switch(Auth::user()->role)
+                                @case(0)
+                                    <span class="badge bg-primary">ADMINISTRATOR</span>
+                                    @break
+                                @case(1)
+                                <span class="badge bg-primary">PRESIDENT</span>
+                                    @break
+                                    @case(2)
+                                    <span class="badge bg-primary">OFFICER</span>
+                                    @break
+                                    @case(3)
+                                    <span class="badge bg-primary">WEB USERS</span>
+                                    @break   
+                            @endswitch
+                            </div>
                                 <div class="pl-lg-4">
                                     <div class="form-group{{ $errors->has('name') ? ' has-danger' : '' }}">
                                         <label class="form-control-label" for="input-name">

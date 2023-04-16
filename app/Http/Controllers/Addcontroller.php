@@ -12,7 +12,8 @@ use App\Models\Pledges;
 use App\Models\Contacts;
 use App\Models\photos;
 use App\Models\category;
-
+use App\Models\User;
+use Illuminate\Support\Facades\Hash;
 
 class Addcontroller extends Controller
 {
@@ -128,29 +129,43 @@ class Addcontroller extends Controller
 
   public function membership(Request $request)
   {
+    
     $check = $request->check;
     $email = $request->email;
-    if ($check == "add") {
-      $fname = $request->fname;
-      $lname = $request->lname;
-      $mname = $request->mname;
-      $gender = $request->gender;
-      $status = $request->status;
-      $religion = $request->religion;
-      $dob = $request->dob;
-      $age = $request->age;
-      $pob = $request->pob;
-      $ad1 = $request->ad1;
-      $ad2 = $request->ad2;
-      $ad3 = $request->ad3;
-      $ad4 = $request->ad4;
-      $contact = $request->contact;
-      $contactadd = $request->contactadd;
-      $facebook = $request->facebook;
-      $twitter = $request->twitter;
-      $instagram = $request->instagram;
-      $linkedin = $request->linkedin;
+    $fname = $request->fname;
+    $lname = $request->lname;
+    $mname = $request->mname;
+    $gender = $request->gender;
+    $status = $request->status;
+    $religion = $request->religion;
+    $dob = $request->dob;
+    $pob = $request->pob;
+    $ad1 = $request->ad1;
+    $ad2 = $request->ad2;
+    $ad3 = $request->ad3;
+    $ad4 = $request->ad4;
+    $contact = $request->contact;
+    $contactadd = $request->contactadd;
+    $facebook = $request->facebook;
+    $twitter = $request->twitter;
+    $instagram = $request->instagram;
+    $linkedin = $request->linkedin;
 
+  
+    $validate =  User::where('email',$email);
+    if(count($validate->get())== 0){
+      $user =  User::create([
+        'name'=>$fname.' '.$lname,
+        'email' => $email,
+        'password' =>Hash::make('jjc_'.$lname) ,
+        'role' =>3,
+        'resetcode' => ''
+      ]);
+    }else {
+      $user = $validate->get()[0];
+    }
+
+    if ($check == "add") {
       Partners::create([
         'email' => $email,
         'firstname' => $fname,
@@ -160,13 +175,13 @@ class Addcontroller extends Controller
         'gender' => $gender,
         'status' => $status,
         'religion' => $religion,
-        'age' => $age,
         'placeofbirth' => $pob,
         'address' => $ad1 . ' ,' . $ad2 . ' ,' . $ad3 . '  ,' . $ad4,
         'members' => 1,
         'pledges' => 0,
         'volunteer' => 0,
         'partnership' => 0,
+        'userID' => $user->id,
         'message' => null,
         'contact' => $contact,
         'contactadd' => $contactadd,
@@ -175,8 +190,8 @@ class Addcontroller extends Controller
         'instagram' => $instagram,
         'linkedin' => $linkedin
       ]);
-
-      return redirect()->back()->with('success', 'WELCOME NEW MEMBER. Your Form was Submitted and we`ll response to you ASAP!');
+      
+ return redirect()->back()->with('success', 'WELCOME NEW MEMBER. Your Form was Submitted and we`ll response to you ASAP!');
     } else if ($check == "update") {
 
       $req = Partners::where('email', $email);
@@ -211,25 +226,7 @@ class Addcontroller extends Controller
       }
     } else if ($check == "addwpledge") {
 
-      $fname = $request->fname;
-      $lname = $request->lname;
-      $mname = $request->mname;
-      $gender = $request->gender;
-      $status = $request->status;
-      $religion = $request->religion;
-      $dob = $request->dob;
-      $age = $request->age;
-      $pob = $request->pob;
-      $ad1 = $request->ad1;
-      $ad2 = $request->ad2;
-      $ad3 = $request->ad3;
-      $ad4 = $request->ad4;
-      $contact = $request->contact;
-      $contactadd = $request->contactadd;
-      $facebook = $request->facebook;
-      $twitter = $request->twitter;
-      $instagram = $request->instagram;
-      $linkedin = $request->linkedin;
+   
       $amount = $request->amount;
 
       Partners::create([
@@ -241,13 +238,13 @@ class Addcontroller extends Controller
         'gender' => $gender,
         'status' => $status,
         'religion' => $religion,
-        'age' => $age,
         'placeofbirth' => $pob,
         'address' => $ad1 . ' ,' . $ad2 . ' ,' . $ad3 . '  ,' . $ad4,
         'members' => 0,
         'pledges' => 1,
         'volunteer' => 0,
         'partnership' => 0,
+        'userID' => $user->id,
         'message' => $amount,
         'contact' => $contact,
         'contactadd' => $contactadd,
@@ -265,26 +262,7 @@ class Addcontroller extends Controller
       ]);
       return redirect()->back()->with('success', 'WELCOME NEW MEMBER. Your Form and Pledge was Submitted and we will response to you ASAP!');
     } else if ($check == "addvolunteer") {
-      $fname = $request->fname;
-      $lname = $request->lname;
-      $mname = $request->mname;
-      $gender = $request->gender;
-      $status = $request->status;
-      $religion = $request->religion;
-      $dob = $request->dob;
-      $age = $request->age;
-      $pob = $request->pob;
-      $ad1 = $request->ad1;
-      $ad2 = $request->ad2;
-      $ad3 = $request->ad3;
-      $ad4 = $request->ad4;
-      $contact = $request->contact;
-      $contactadd = $request->contactadd;
-      $facebook = $request->facebook;
-      $twitter = $request->twitter;
-      $instagram = $request->instagram;
-      $linkedin = $request->linkedin;
-
+    
       Partners::create([
         'email' => $email,
         'firstname' => $fname,
@@ -294,13 +272,13 @@ class Addcontroller extends Controller
         'gender' => $gender,
         'status' => $status,
         'religion' => $religion,
-        'age' => $age,
         'placeofbirth' => $pob,
         'address' => $ad1 . ' ,' . $ad2 . ' ,' . $ad3 . '  ,' . $ad4,
         'members' => 0,
         'pledges' => 0,
         'volunteer' => 1,
         'partnership' => 0,
+        'userID' => $user->id,
         'message' => null,
         'contact' => $contact,
         'contactadd' => $contactadd,
@@ -312,25 +290,7 @@ class Addcontroller extends Controller
 
       return redirect()->back()->with('success', 'WELCOME OUR VOLUNTEER. Your Form was Submitted and we will response to you ASAP!');
     } else if ($check == "addpartnership") {
-      $fname = $request->fname;
-      $lname = $request->lname;
-      $mname = $request->mname;
-      $gender = $request->gender;
-      $status = $request->status;
-      $religion = $request->religion;
-      $dob = $request->dob;
-      $age = $request->age;
-      $pob = $request->pob;
-      $ad1 = $request->ad1;
-      $ad2 = $request->ad2;
-      $ad3 = $request->ad3;
-      $ad4 = $request->ad4;
-      $contact = $request->contact;
-      $contactadd = $request->contactadd;
-      $facebook = $request->facebook;
-      $twitter = $request->twitter;
-      $instagram = $request->instagram;
-      $linkedin = $request->linkedin;
+   
 
       Partners::create([
         'email' => $email,
@@ -341,13 +301,13 @@ class Addcontroller extends Controller
         'gender' => $gender,
         'status' => $status,
         'religion' => $religion,
-        'age' => $age,
         'placeofbirth' => $pob,
         'address' => $ad1 . ' ,' . $ad2 . ' ,' . $ad3 . '  ,' . $ad4,
         'members' => 0,
         'pledges' => 0,
         'volunteer' => 0,
         'partnership' => 1,
+        'userID' => $user->id,
         'message' => null,
         'contact' => $contact,
         'contactadd' => $contactadd,
@@ -395,21 +355,28 @@ class Addcontroller extends Controller
     $id = $request->id;
 
 
-    switch ($type) {
-      case 'blogs':
-        Blogs::findorFail($id)->update([
+    if($type == 'blogs'){
+    Blogs::findorFail($id)->update([
           'publish' => $pb
         ]);
-        break;
-
-      case 'events':
-        Events::findorFail($id)->update([
-          'publish' => $pb
-        ]);
-        break;
+    if($pb == 1){
+      //unpublish
+      return redirect()->route('mail.NotifyALLUsers',['types'=>'blogs']);
+    }
+    return redirect()->back()->with('success', 'Blog unpublished Successfully!');
     }
 
+    if($type == 'events'){
+      Events::findorFail($id)->update([
+              'publish' => $pb
+            ]);
+      if($pb == 1){
+        //unpublish
+        return redirect()->route('mail.NotifyALLUsers',['types'=>'events']);
+      }
+      return redirect()->back()->with('success', 'Event unpublished Successfully!');
+      }
 
-    return redirect()->back()->with('success', 'Item updated Successfully!');
+ 
   }
 }

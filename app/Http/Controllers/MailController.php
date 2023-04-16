@@ -9,6 +9,7 @@ use PHPMailer\PHPMailer\OAuth;
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\SMTP;
 use App\Models\User;
+use App\Models\Partners;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Auth;
 
@@ -139,12 +140,25 @@ class MailController extends Controller
     {
         $receiver = $request->email;
         $approve = $request->approve;
+        
+
+        $getuser = Partners::where('email',$receiver)->get();
         $msgBody = '';
         if ($approve == true) {
             $msgBody = '
-                Welcome User' . date('Ymd') . ' @' . $receiver . ' , Congratulations! We are thrilled to inform you that your application has been approved. We are excited to have you on board and look forward to working with you. Thank you for your interest in our organization, and we are confident that you will make a valuable contribution to our team. Welcome aboard!
+                Welcome User' . date('Ymd') . ' @' . $getuser[0]->firstname.' '.$getuser[0]->lastname . ' , Congratulations! We are thrilled to inform you that your application has been approved. We are excited to have you on board and look forward to working with you. Thank you for your interest in our organization, and we are confident that you will make a valuable contribution to our team. Welcome aboard!
+
+                <br/>
+                <br/>
+                Your New Login Credentials is <br/>
+
+                email : '.$getuser[0]->email.' <br/>
+                password : jjc_'.$getuser[0]->lastname.' <br/>
 
 
+                <br/>
+
+                Please login to View more info about us.
 
 
 
@@ -152,7 +166,7 @@ class MailController extends Controller
             ';
         } else {
             $msgBody = '
-                Greetings User' . date('Ymd') . ' @' . $receiver . ' , We regret to inform you that your application has not been approved at this time. However, we encourage you to consider revising your application and applying again in the future. Thank you for your interest and we wish you the best of luck in your future endeavors. 
+                Greetings User' . date('Ymd') . ' @' . $user[0]->fname.' '.$user[0]->lname . ' , We regret to inform you that your application has not been approved at this time. However, we encourage you to consider revising your application and applying again in the future. Thank you for your interest and we wish you the best of luck in your future endeavors. 
             ';
         }
 
@@ -338,5 +352,107 @@ class MailController extends Controller
 
 
         return redirect()->back()->with('error', 'Email does not match our records.');
+    }
+
+    public function NotifyALLUsers(Request $request){
+       $alluser = User::whereNotIn('id',[Auth::user()->id])->get();
+       
+       foreach($alluser as $row){
+    
+                    if($request->types == 'blogs'){
+                        $html = ' Good Day! '.$row->name.'! , <br/> New Blog has posted and published. login to view more information about our post.   ';
+                    } 
+                    
+                    if($request->types == 'events'){
+                        $html = ' Good Day! '.$row->name.'! , <br/> New Event has been published. login to view more information about our post.   ';
+                    } 
+
+                    $this->token = '1//0e35DqS4PoQcQCgYIARAAGA4SNwF-L9IrNMkS7-eOy0BfmD7vJGfEokDDLgKRbJemH82uz6P9_k6EbfhBVvFi4YW0-KcB85_hKew';
+                    $mail = new PHPMailer(true);
+            
+                    try {
+                        $mail->isSMTP();
+                        $mail->SMTPDebug = SMTP::DEBUG_OFF;
+                        $mail->Host = 'smtp.gmail.com';
+                        $mail->Port = 465;
+                        $mail->SMTPSecure = PHPMailer::ENCRYPTION_SMTPS;
+                        $mail->SMTPAuth = true;
+                        $mail->AuthType = 'XOAUTH2';
+                        $mail->setOAuth(
+                            new OAuth(
+                                [
+                                    'provider'          => $this->provider,
+                                    'clientId'          => $this->client_id,
+                                    'clientSecret'      => $this->client_secret,
+                                    'refreshToken'      => '1//0e35DqS4PoQcQCgYIARAAGA4SNwF-L9IrNMkS7-eOy0BfmD7vJGfEokDDLgKRbJemH82uz6P9_k6EbfhBVvFi4YW0-KcB85_hKew',
+                                    'userName'          => 'capstone0223@gmail.com'
+                                ]
+                            )
+                        );
+            
+                        $mail->setFrom('capstone0223@gmail.com', 'NoReply@JJCZamboanga');
+                        $mail->addAddress($row->email, $row->name);
+                        $mail->Subject = 'JJC_Notifications';
+                        $mail->CharSet = PHPMailer::CHARSET_UTF8;
+                        $body = '<!DOCTYPE html>
+                       <html lang="en">
+                       
+                       <head>
+                           <meta charset="UTF-8">
+                           <meta name="viewport" content="width=device-width, initial-scale=1.0">
+                           <meta http-equiv="X-UA-Compatible" content="ie=edge">
+                           <title></title>
+                       </head>
+                       
+                       <body >
+                       
+                       
+                              '.$html.'
+                              
+                               
+                               JJczamboanga Team
+                               
+                               
+                               
+                               
+                               
+                               
+                               
+                               </h4>
+                       
+                       
+                                   
+                                  
+                            
+                            
+                               <h5>
+                                
+                                  JJC Zamboanga | All rights Reserved &middot; 2022
+                       
+                               </h5>
+                               <p><br><br><br></p>
+                       
+                       </body>
+                       
+                       </html>
+                       
+                       ';
+                        $mail->msgHTML($body);
+                        $mail->AltBody = 'This is a plain text message body';
+                        if ($mail->send()) {
+                         
+                        } else {
+                         
+                            //  return redirect()->back()->with('error', 'Unable to send email.');
+                        }
+                    } catch (Exception $e) {
+                        return $e;
+                        //   return redirect()->back()->with('error', 'Exception: ' . $e->getMessage());
+                    }
+                    
+                
+       }
+
+       return redirect()->back()->with('success', strtoupper($request->types).' has been published | All user has been notified');
     }
 }

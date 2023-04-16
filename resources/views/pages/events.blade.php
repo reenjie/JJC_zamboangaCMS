@@ -8,13 +8,17 @@
         <div class="card strpied-tabled-with-hover">
           <div class="card-header ">
             <h4 class="card-title">Events</h4>
+            @if(Auth::user()->role != 3)
             <p class="card-category">Manage Informations</p>
+            @endif
           </div>
           <div class="card-body  ">
             <!-- Button trigger modal -->
+            @if(Auth::user()->role != 3)
             <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
               Add
             </button>
+            @endif
 
             <!-- Modal -->
             <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -71,7 +75,7 @@
               </button>
             </div>
             @endif
-
+            @if(Auth::user()->role != 3)
             <div class="table-responsive" style="width: 100%;overflow-y:scroll">
               <table class="table table-striped">
                 <thead>
@@ -140,7 +144,7 @@
                         @if($item->publish)
                         <button class="btn btn-light text-danger btn-sm" type="submit" name="pb" value="0">Unpublish</button>
                         @else
-                        <button class="btn btn-light  btn-sm" style="color:green" type="submit" name="pb" value="1">Publish</button>
+                        <button class="btn btn-light btnpublish  btn-sm" style="color:green" type="submit" name="pb" value="1">Publish</button>
                         @endif
                       </form>
                       <button data-id="{{$item->id}}" data-table="events" class="btn btn-sm btn-danger delete"><i class="fas fa-trash-can"></i></button>
@@ -152,6 +156,10 @@
               </table>
 
             </div>
+            @else 
+
+            @include('pages.includes.userevent')
+            @endif
 
 
           </div>
@@ -164,6 +172,9 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.3/jquery.min.js" integrity="sha512-STof4xm1wgkfm7heWqFJVn58Hm3EtS31XFaagaa8VMReCXAkQnJZ+jEy8PCC/iT18dFy95WcExNHFTqLyp72eQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 
 <script>
+    $('.btnpublish').click(function(){
+    $(this).html('publishing <br/> please wait  <i class="fas fa-spinner fa-pulse"></i>').attr('style','pointer-events:none');
+  })
   const editor1 = ClassicEditor.create(document.querySelector('#textarea1')).then(editor => {
     myEditor = editor;
     myEditor.model.document.on('change:data', () => {

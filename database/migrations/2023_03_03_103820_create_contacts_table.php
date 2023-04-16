@@ -20,6 +20,7 @@ return new class extends Migration
             $table->text('subject');
             $table->text('message');
             $table->integer('status')->comment('0= unread,1 =read');
+            $table->integer('isnotify')->nullable();
             $table->timestamps();
         });
     }

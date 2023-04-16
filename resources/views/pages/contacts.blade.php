@@ -8,8 +8,8 @@
                 <div class="card strpied-tabled-with-hover">
                     <div class="card-header ">
                        
-                        <h4 class="card-title">Contacts</h4>
-                        <p class="card-category">Manage Informations</p>
+                      
+                        @if(Auth::user()->role !=3)  <h4 class="card-title">Contacts</h4><p class="card-category">Manage Informations</p> @endif
                     </div>
                     <div class="card-body ">
                     
@@ -18,7 +18,7 @@
                         $contact = DB::select("SELECT * FROM `contactdetails`");
                     @endphp
                      @foreach ($contact as $item)          
-                     <span style="font-size:13px;color:#F16767;">Changes Saved Automatically..</span>
+                     @if(Auth::user()->role !=3)     <span style="font-size:13px;color:#F16767;">Changes Saved Automatically..</span>
                     <h6>Location:</h6>
                     <textarea name="" data-table="contactdetails" data-entity="location" data-id="{{$item->id}}" class="form-control updateonmove" id="" cols="30" rows="10">{{$item->location}}</textarea>
                     <br>
@@ -42,7 +42,36 @@
                      <br>
                      <h6>Linkedin Links:</h6>
                      <textarea name="" data-table="contactdetails" data-entity="linkedin" data-id="{{$item->id}}" class="form-control updateonmove" id="" cols="30" rows="10">{{$item->linkedin}}</textarea>
+                     @else 
+                        <div class="text-center">
+                            <h6>Location:</h6>
+                            {{$item->location}}
+                            <p></p>
+                            
+                            <h6>Email:</h6>
+                        {{$item->email}}
+                        <p></p>
+                            <h6>Phone Details:</h6>
+                           {{$item->phonedetails}}
+                           <p></p>
+                             <h6>Open Details:</h6>
+                            {{$item->opendetails}}
+                            <p></p>
+                             <h6>Facebook Links:</h6>
+                           {{$item->facebook}}
+                           <p></p>
+                             <h6>Twitter Links:</h6>
+                           {{$item->twitter}}
+                           <p></p>
+                             <h6>Instagram Links:</h6>
+                             {{$item->instagram}}
+                             <p></p>
+                             <h6>Linkedin Links:</h6>
+                            {{$item->linkedin}}
+       
+                        </div>
 
+                     @endif
                      @endforeach
                     </div>
                 </div>

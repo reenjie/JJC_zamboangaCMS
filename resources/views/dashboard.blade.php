@@ -10,6 +10,7 @@
     @endphp
 
         <div class="container-fluid">
+         
            <div class="row">
             <div class="col-md-3">
                 <div class="card shadow-lg" style="border-right:10px solid #F6E1C3;border-radius:15px ">

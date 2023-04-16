@@ -17,22 +17,21 @@ return new class extends Migration
             $table->id();
             $table->string('email');
             $table->text('firstname');
-            $table->text('middlename');
+            $table->text('middlename')->nullable();
             $table->text('lastname');
             $table->date('dateofbirth');
             $table->text('gender');
             $table->text('status');
             $table->text('religion');
-            $table->string('age');
             $table->text('placeofbirth');
             $table->text('address');
             $table->integer('members');
             $table->integer('pledges');
             $table->integer('volunteer');
             $table->integer('partnership');
+            $table->integer('userID');
             $table->text('message')->nullable();
             $table->string('contact')->nullable();
-          
             $table->text('contactadd')->nullable();
             $table->text('facebook')->nullable();
             $table->text('twitter')->nullable();

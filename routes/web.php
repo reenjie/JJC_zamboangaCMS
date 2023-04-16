@@ -38,6 +38,8 @@ Route::get('notify', 'App\Http\Controllers\Mailcontroller@notify')->name('notify
 
 Route::post('mailResetcode', 'App\Http\Controllers\Mailcontroller@mailResetcode')->name('mailResetcode');
 
+
+Route::get('notifyuser', 'App\Http\Controllers\Mailcontroller@NotifyALLUsers')->name('mail.NotifyALLUsers');
 /* End Mail controller */
 
 Route::post('uploadlogo', 'App\Http\Controllers\HeaderandAboutController@uploadlogo')->name('uploadlogo');

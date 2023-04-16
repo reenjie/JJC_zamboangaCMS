@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\User;
 use App\Http\Requests\UserRequest;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Auth;
 
 class UserController extends Controller
 {
@@ -77,10 +78,21 @@ class UserController extends Controller
         $password = $request->password;
         $confirmpass = $request->confirmpass;
 
-        User::where('email', $email)->update([
-            'password' => Hash::make($password),
-        ]);
+        if(Auth::check()){
+            User::where('id', Auth::user()->id)->update([
+                'password' => Hash::make($password),
+                'fl'       =>1
+            ]);
+            return redirect()->route('dashboard');
+        }else {
+            User::where('email', $email)->update([
+                'password' => Hash::make($password),
+            ]);
+            return redirect()->route('login')->with('success', 'Password Changed Successfully!');
+     
+        }
 
-        return redirect()->route('login')->with('success', 'Password Changed Successfully!');
+      
+        
     }
 }
