@@ -17,36 +17,33 @@
             <div class="col-md-12">
               <ul class="nav nav-tabs" id="myTab" role="tablist">
                 <li class="nav-item">
-                  <a class="nav-link active" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="true">Members</a>
+                  <a class="nav-link @if(!request('home')) active @endif" id="home-tab"  href="{{route('page.index','partners')}}" role="tab" aria-controls="home" aria-selected="true">Members</a>
                 </li>
                 <li class="nav-item">
-                  <a class="nav-link" id="profile-tab" data-toggle="tab" href="#profile" role="tab" aria-controls="profile" aria-selected="false">Pledges</a>
+                  <a class="nav-link @if(request('home')== 'pledges') active @endif" id="profile-tab"  href="?home=pledges" role="tab" aria-controls="profile" aria-selected="false">Pledges</a>
                 </li>
                 <li class="nav-item">
-                  <a class="nav-link" id="contact-tab" data-toggle="tab" href="#contact" role="tab" aria-controls="contact" aria-selected="false">Volunteer</a>
+                  <a class="nav-link @if(request('home')== 'volunteer') active @endif" id="contact-tab"  href="?home=volunteer" role="tab" aria-controls="contact" aria-selected="false">Volunteer</a>
                 </li>
-                <li class="nav-item">
-                    <a class="nav-link" id="vol-tab" data-toggle="tab" href="#voltab" role="tab" aria-controls="contact" aria-selected="false">Partnership</a>
+                <li class="nav-item ">
+                    <a class="nav-link @if(request('home')== 'partnership') active @endif" id="vol-tab"  href="?home=partnership" role="tab" aria-controls="contact" aria-selected="false">Partnership</a>
                   </li>
               </ul>
-              <div class="tab-content" id="myTabContent">
-                <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">@include('component.members')</div>
-                <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">@include('component.pledges')</div>
-                <div class="tab-pane fade" id="contact" role="tabpanel" aria-labelledby="contact-tab">@include('component.volunteers')</div>
-                <div class="tab-pane fade" id="voltab" role="tabpanel" aria-labelledby="vol-tab">@include('component.partnerships')</div>
-              </div>
-      
-                {{-- <div class="card strpied-tabled-with-hover">
-                    <div class="card-header ">
-                       
-                        <h4 class="card-title">Partners</h4>
-                        <p class="card-category">Manage Informations</p>
-                    </div>
-                    <div class="card-body ">
-                    
-                  
-                    </div>
-                </div> --}}
+            
+              @switch(request('home'))
+                  @case("pledges")
+                   @include('component.pledges')
+                      @break
+                  @case("volunteer")
+                  @include('component.volunteers')
+                      @break
+                  @case("partnership")
+                  @include('component.partnerships')
+                    @break
+                  @default
+                  @include('component.members')
+              @endswitch
+           
             </div>
           
         </div>

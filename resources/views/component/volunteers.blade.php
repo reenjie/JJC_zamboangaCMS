@@ -5,6 +5,7 @@
           <tr class="table-info">
             <th scope="col">#</th>
             <th scope="col">Action</th>
+            <th scope="col">Joined Events</th>
             <th scope="col">Name</th>
             <th scope="col">Date of Birth</th>
             <th scope="col">Gender</th>
@@ -34,8 +35,38 @@
                  <span class="badge bg-danger">Declined</span>
                  @endif
                  </td>
+                 <td>
+                  @php
+                      $joined = DB::select('select * from events where id in (select TableID from joinedevents where typeof ="events" and userID = '.$item->userID.' )');
+                      $ev = DB::select('select * from joinedevents where typeof ="events" and userID = '.$item->userID.'');
+                  @endphp
+                  @foreach ($joined as $xx)
+                  <div class="card">
+                    <div class="card-body">
+                        <h6 class="text-primary" style="font-weight: bold;text-transform:uppercase;font-size:13px">{!!$xx->title!!}</h6>
+                        <span style="font-size:11px">Status : </span>
+                        @foreach ($ev as $xe )
+                            @if($xe->TableID == $xx->id)
+                            @if($xe->typeofjoin == 1)
+                            <span class="badge bg-success">Attendees</span>
+                         
+                            @else 
+                            <span class="badge bg-success">Volunteer</span>
+                           
+                            @endif
+                            @endif
+                        @endforeach
+                       
+                    </div>
+                  </div>
+                  @endforeach
+                 
+
+                </td>
                 <td><span style="font-size:11px">{{$item->email}}</span><br>
                     {{$item->firstname.' '.$item->middlename.' '.$item->lastname}}</td>
+
+                   
                 <td>{{date('F j,Y',strtotime($item->dateofbirth))}}</td>
                 <td>{{$item->gender}}</td>
                 <td>{{$item->status}}</td>

@@ -1,10 +1,10 @@
 <div class="col-md-4">
-  <label for="first-name" class="form-label">First Name <span class="text-danger">*</span></label>
-  <input type="text" required name="fname" class="form-control ekis" placeholder="First Name" id="first-name">
+  <label for="first-name" class="form-label">First Name <span class="text-danger">@isset($pledge_exempted) @else * @endisset</span></label>
+  <input type="text" @isset($pledge_exempted) @else required @endisset name="fname" class="form-control ekis" placeholder="First Name" id="first-name">
 </div>
 <div class="col-md-4">
-  <label for="last-name" class="form-label">Last Name <span class="text-danger">*</span></label>
-  <input type="text" required name="lname" class="form-control ekis" placeholder="Last Name" id="last-name">
+  <label for="last-name" class="form-label">Last Name <span class="text-danger">@isset($pledge_exempted) @else * @endisset</span></label>
+  <input type="text"  @isset($pledge_exempted) @else required @endisset name="lname" class="form-control ekis" placeholder="Last Name" id="last-name">
 </div>
 <div class="col-md-4">
   <label for="middle-name" class="form-label">Middle Name </label>
@@ -12,8 +12,12 @@
 </div>
 <div class="col-md-2">
   <label for="date-of-birth" class="form-label">Date of Birth <span class="text-danger">*</span></label>
-  <input type="date" name="dob" required class="form-control ekis" id="date-of-birth" max="{{date('Y-m-d', strtotime('-18 years +1 day'))}}" min="{{date('Y-m-d', strtotime('-24 years -1 day'))}}">
-
+  
+  <input type="date" name="dob" required class="form-control ekis" 
+  id="date-of-birth" 
+  max="{{date('Y-m-d', strtotime('-'.$cdata['startage'].' years'))}}" 
+  min="{{date('Y-m-d', strtotime('-'.$cdata['endage'].' years'))}}">
+  
 </div>
 <div class="col-md-2">
   <label for="gender" class="form-label">Gender <span class="text-danger">*</span></label>
@@ -23,14 +27,15 @@
     <option>Female</option>
   </select>
 </div>
-<div class="col-md-2">
+@isset($pledge_exempted) @else @isset($volunteer_exempted) @else <div class="col-md-2">
   <label for="marital-status" class="form-label">Marital Status <span class="text-danger">*</span></label>
   <select id="marital-status" required name="status" class="form-select ekis">
     <option selected>Choose...</option>
     <option>Single</option>
     <option>Married</option>
   </select>
-</div>
+</div> @endisset @endisset
+
 <div class="col-md-2">
   <label for="religion" class="form-label">Religion <span class="text-danger">*</span></label>
   <select id="religion" required name="religion" class="form-select ekis">
@@ -44,10 +49,12 @@
   <input type="text" class="form-control" id="age" disabled>
 </div>
 
+@isset($pledge_exempted) @else
 <div class="col-md-4">
   <label for="place-of-birth" class="form-label">Place of Birth <span class="text-danger">*</span></label>
   <input type="text" name="pob" required class="form-control ekis" placeholder="Place of Birth" id="place-of-birth">
 </div>
+@endif
 <label class="form-label">Permanent Address</label>
 <div class="col-md-3">
   <label for="street" class="form-label">Prk/Street/Building No. <span class="text-danger">*</span></label>

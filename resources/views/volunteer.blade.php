@@ -4,6 +4,8 @@
 <main id="main">
   @php
       $description = DB::select('SELECT * FROM `descriptions`');
+      $cjson = file_get_contents(resource_path('json/config.json'));
+      $cdata = json_decode($cjson, true);
   @endphp
   <!-- ======= Breadcrumbs ======= -->
   <div class="breadcrumbs">
@@ -74,13 +76,25 @@
                 </div>
                     <div class="row" id="already">
                        
-                      @include('forms')
+                      @include('forms' ,["volunteer_exempted"=>true])
         
                     </div>
                   <div class="card">
 
                     <div class="card-body">
                      <div class="row">
+                      <div class="col-md-6">
+                          <select name="eventtojoin" class="form-control" id="" required>
+                            @php
+                                $events = DB::select('select * from events where publish = 1 ');
+                            @endphp
+                            <option value="">Select Events</option>
+                            @foreach ($events as $item)
+                            
+                                <option value="{{$item->id}}">{!!$item->title!!}</option>
+                            @endforeach
+                          </select>
+                      </div>
                         <div class="col-md-6">
                             <input type="hidden" name="vol" value="1">
                           <button type="submit" id="submitbtn" class="btn btn-warning"> I want to be a Volunteer!</button>

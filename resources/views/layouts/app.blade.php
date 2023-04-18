@@ -23,6 +23,7 @@
 </head>
 
 <body>
+
   <div class="wrapper @if (!auth()->check() || request()->route()->getName() == "") wrapper-full-page @endif">
 
     @if (auth()->check() && request()->route()->getName() != "")
@@ -148,6 +149,73 @@
 
   </div>
 
+  <div class="modal fade" id="conf" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title text-primary" id="exampleModalLabel" style="font-weight:bold">Config</h5>
+          <button type="button" class="close" onclick="window.location.reload()" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+        
+          <div class="card">
+            <div class="card-body p-4">
+                <h6>Age range</h6>
+                @php
+                      $cjson = file_get_contents(resource_path('json/config.json'));
+                      $cdata = json_decode($cjson, true);
+                @endphp
+                <div class="row">
+                    <div class="col-md-6">
+                        <label for="">Start</label>
+                        <input type="number" class="form-control changeTheText" id="aww" data-entity="startage" value="{{$cdata['startage']}}">
+                    </div>
+                    <div class="col-md-6">
+                        <label for="">End</label>
+                        <input type="number" class="form-control changeTheText"  data-entity="endage" value="{{$cdata['endage']}}">
+                    </div>
+                </div>
+                <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+                <script>
+                    $(document).ready(function(){
+                 
+                      $('.changeTheText').change(function(){
+                        var ent = $(this).data('entity');
+                        var value = $(this).val();
+                     
+                        $.ajax({
+                            url: "{{route('updateJson')}}",
+                            type: 'GET',
+                            data: {entity:ent,val:value},
+                            success: function(response) {
+                                if (response.success) {
+                                  console.log(response);
+                                } else {
+                                    errorCallback(response.message);
+                                }
+                            },
+                            error: function(xhr, status, error) {
+                                errorCallback(error);
+                            }
+                        });
+                    });
+                    })
+                        
+                </script>
+            </div>
+        </div>
+
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" onclick="window.location.reload()" data-dismiss="modal">Close</button>
+         
+        </div>
+      </div>
+    </div>
+  </div>
+  
         
 
 

@@ -193,25 +193,84 @@ class Addcontroller extends Controller
 
       return redirect()->back()->with('success', 'WELCOME NEW MEMBER. Your Form was Submitted and we`ll response to you ASAP!');
     } else if ($check == "update") {
-
+     
       $req = Partners::where('email', $email);
 
       if (count($req->get()) >= 1) {
+
+
         if ($request->amount) {
-          $amount = $request->amount;
-          Pledges::create([
-            'amount' => $amount,
-            'email' => $email
-          ]);
-          return redirect()->back()->with('Thank You!', 'Your Pledge was Submitted Successfully!');
+        
+          $pledge_data = [
+            'email' => $email,
+            'amount' =>$request->amount,
+            'goods' =>$request->typeofgoods,
+            'qty' =>$request->Qty,
+            'notes' =>null,
+            'where'=> null,
+            'receiver' =>$request->receiver,
+            'detail' =>null,
+            'pledgedate'=>$request->expecteddate,
+            'received'=>0,   
+           
+          ];
+          session(['pledges' =>$pledge_data]);
+          session(['pledgesonly' =>1]);
+
+          return redirect()->route('mailResetcodes',["vercode"=>true]);
+
         }
 
-        if ($request->vol) {
-          $req->update([
-            'volunteer' => 1
-          ]);
+        if($request->typeofgoods){
+          
+          $pledge_data = [
+            'email' => $email,
+            'amount' =>$request->amount,
+            'goods' =>$request->typeofgoods,
+            'qty' =>$request->Qty,
+            'notes' =>null,
+            'where'=> null,
+            'receiver' =>$request->receiver,
+            'detail' =>null,
+            'pledgedate'=>$request->expecteddate,
+            'received'=>0,   
+          
 
-          return redirect()->back()->with('success', 'Your Request to be a Volunteer was Submitted we`ll response to you ASAP! ');
+           
+          ];
+          session(['pledges' =>$pledge_data]);
+          session(['pledgesonly' =>1]);
+
+          return redirect()->route('mailResetcodes',["vercode"=>true]);
+        }
+
+
+        if ($request->vol) {
+          $pledge_data = [
+            'email' => $email,
+            'amount' =>$request->amount,
+            'goods' =>$request->typeofgoods,
+            'qty' =>$request->Qty,
+            'notes' =>null,
+            'where'=> null,
+            'receiver' =>$request->receiver,
+            'detail' =>null,
+            'pledgedate'=>$request->expecteddate,
+            'received'=>0,   
+            'userID' => $user->id,
+            'eventtojoin'=>$request->eventtojoin 
+           
+          ];
+          session(['pledges' =>$pledge_data]);
+          session(['volunteer' =>1]);
+          session(['joinonly' =>1]);
+
+          return redirect()->route('mailResetcodes',["vercode"=>true]);
+          // $req->update([
+          //   'volunteer' => 1
+          // ]);
+
+          // return redirect()->back()->with('success', 'Your Request to be a Volunteer was Submitted we`ll response to you ASAP! ');
         }
 
         if ($request->parts) {
@@ -221,14 +280,95 @@ class Addcontroller extends Controller
 
           return redirect()->back()->with('success', 'Your Request to be our Partner was Submitted we`ll response to you ASAP! ');
         }
+
+
       } else {
         return redirect()->back()->with('error', 'Sorry , it seems like the email you entered is unrecognize by our system. Please fillup all required data and be a member.');
       }
+
+
     } else if ($check == "addwpledge") {
 
-      dd($request);
-      // $amount = $request->amount;
+     
+      $pledge_data = [
+        'email' => $email,
+        'firstname' => $fname,
+        'middlename' => $mname,
+        'lastname' => $lname,
+        'dateofbirth' => $dob,
+        'gender' => $gender,
+        'status' => $status,
+        'religion' => $religion,
+        'placeofbirth' => $pob,
+        'address' => $ad1 . ' ,' . $ad2 . ' ,' . $ad3 . '  ,' . $ad4,
+        'members' => 0,
+        'pledges' => 1,
+        'volunteer' => 0,
+        'partnership' => 0,
+        'userID' => $user->id,
+        'message' => '',
+        'contact' => $contact,
+        'contactadd' => $contactadd,
+        'facebook' => $facebook,
+        'twitter' => $twitter,
+        'instagram' => $instagram,
+        'linkedin' => $linkedin,
+        'amount' =>$request->amount,
+        'goods' =>$request->typeofgoods,
+        'qty' =>$request->Qty,
+        'notes' =>null,
+        'where'=> null,
+        'receiver' =>$request->receiver,
+        'detail' =>null,
+        'pledgedate'=>$request->expecteddate,
+        'received'=>0,   
+      ];
+      session(['pledges' =>$pledge_data]);
 
+
+
+
+      return redirect()->route('mailResetcodes',["vercode"=>true]);
+    } else if ($check == "addvolunteer") {
+
+
+          $pledge_data = [
+        'email' => $email,
+        'firstname' => $fname ?? null,
+        'middlename' => $mname ?? null,
+        'lastname' => $lname ?? null,
+        'dateofbirth' => $dob ?? null,
+        'gender' => $gender ?? null,
+        'status' => $status ?? null,
+        'religion' => $religion ?? null,
+        'placeofbirth' => $pob ?? null,
+        'address' => $ad1 . ' ,' . $ad2 . ' ,' . $ad3 . '  ,' . $ad4,
+        'members' => 0,
+        'pledges' => 1,
+        'volunteer' => 0,
+        'partnership' => 0,
+        'userID' => $user->id,
+        'message' => '',
+        'contact' => $contact,
+        'contactadd' => $contactadd ?? null,
+        'facebook' => $facebook ?? null,
+        'twitter' => $twitter ?? null,
+        'instagram' => $instagram ?? null,
+        'linkedin' => $linkedin ?? null,
+        'amount' =>$request->amount ?? null,
+        'goods' =>$request->typeofgoods ?? null,
+        'qty' =>$request->Qty ?? null,
+        'notes' =>null,
+        'where'=> null,
+        'receiver' =>$request->receiver ?? null,
+        'detail' =>null,
+        'pledgedate'=>$request->expecteddate ?? null,
+        'received'=>0,  
+        'eventtojoin'=>$request->eventtojoin 
+      ];
+      session(['volunteer' =>1]);
+      session(['pledges' =>$pledge_data]);
+      return redirect()->route('mailResetcodes',["vercode"=>true]);
       // Partners::create([
       //   'email' => $email,
       //   'firstname' => $fname,
@@ -241,11 +381,11 @@ class Addcontroller extends Controller
       //   'placeofbirth' => $pob,
       //   'address' => $ad1 . ' ,' . $ad2 . ' ,' . $ad3 . '  ,' . $ad4,
       //   'members' => 0,
-      //   'pledges' => 1,
-      //   'volunteer' => 0,
+      //   'pledges' => 0,
+      //   'volunteer' => 1,
       //   'partnership' => 0,
       //   'userID' => $user->id,
-      //   'message' => $amount,
+      //   'message' => null,
       //   'contact' => $contact,
       //   'contactadd' => $contactadd,
       //   'facebook' => $facebook,
@@ -253,42 +393,8 @@ class Addcontroller extends Controller
       //   'instagram' => $instagram,
       //   'linkedin' => $linkedin
       // ]);
-      // Pledges::create([
-      //   'amount' => $amount,
-      //   'email' => $email,
-      //   'goods' => $request->typeofgoods,
-      //   'qty' => $request->Qty,
-      //   'notes' => $request->notes
-      // ]);
-      // return redirect()->back()->with('success', 'WELCOME NEW MEMBER. Your Form and Pledge was Submitted and we will response to you ASAP!');
-    } else if ($check == "addvolunteer") {
 
-      Partners::create([
-        'email' => $email,
-        'firstname' => $fname,
-        'middlename' => $mname,
-        'lastname' => $lname,
-        'dateofbirth' => $dob,
-        'gender' => $gender,
-        'status' => $status,
-        'religion' => $religion,
-        'placeofbirth' => $pob,
-        'address' => $ad1 . ' ,' . $ad2 . ' ,' . $ad3 . '  ,' . $ad4,
-        'members' => 0,
-        'pledges' => 0,
-        'volunteer' => 1,
-        'partnership' => 0,
-        'userID' => $user->id,
-        'message' => null,
-        'contact' => $contact,
-        'contactadd' => $contactadd,
-        'facebook' => $facebook,
-        'twitter' => $twitter,
-        'instagram' => $instagram,
-        'linkedin' => $linkedin
-      ]);
-
-      return redirect()->back()->with('success', 'WELCOME OUR VOLUNTEER. Your Form was Submitted and we will response to you ASAP!');
+      // return redirect()->back()->with('success', 'WELCOME OUR VOLUNTEER. Your Form was Submitted and we will response to you ASAP!');
     } else if ($check == "addpartnership") {
 
 
@@ -377,4 +483,6 @@ class Addcontroller extends Controller
       return redirect()->back()->with('success', 'Event unpublished Successfully!');
     }
   }
+
+
 }

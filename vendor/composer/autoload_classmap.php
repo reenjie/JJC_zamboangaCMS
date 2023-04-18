@@ -53,6 +53,7 @@ return array(
     'App\\Models\\Footer' => $baseDir . '/app/Models/Footer.php',
     'App\\Models\\Header' => $baseDir . '/app/Models/Header.php',
     'App\\Models\\Header_video' => $baseDir . '/app/Models/Header_video.php',
+    'App\\Models\\Joinedevent' => $baseDir . '/app/Models/Joinedevent.php',
     'App\\Models\\Partners' => $baseDir . '/app/Models/Partners.php',
     'App\\Models\\Pledges' => $baseDir . '/app/Models/Pledges.php',
     'App\\Models\\Project' => $baseDir . '/app/Models/Project.php',

@@ -41,7 +41,9 @@
                
                 <button style="float:right;font-size:12px" id="openmessages" data-toggle="modal" data-target="#viewmessage" class="btn btn-sm btn-primary  ">Messages <span class="badge badge-danger @if(count($messages)== 0) d-none @endif">{{count($messages)}}</span></button>
                 
-  
+              <button class="btn btn-secondary btn-sm" style="float:right;font-size:12px" data-toggle="modal" data-target="#conf">Configuration</button>
+        
+              {{-- --}}
   <!-- Modal -->
   <div class="modal fade" id="viewmessage" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-lg" role="document">

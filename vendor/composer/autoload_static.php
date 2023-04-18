@@ -347,8 +347,8 @@ class ComposerStaticInitc68d11a4d582535518825d94ae9a292e
         ),
         'Psr\\Http\\Message\\' => 
         array (
-            0 => __DIR__ . '/..' . '/psr/http-message/src',
-            1 => __DIR__ . '/..' . '/psr/http-factory/src',
+            0 => __DIR__ . '/..' . '/psr/http-factory/src',
+            1 => __DIR__ . '/..' . '/psr/http-message/src',
         ),
         'Psr\\Http\\Client\\' => 
         array (
@@ -584,6 +584,7 @@ class ComposerStaticInitc68d11a4d582535518825d94ae9a292e
         'App\\Models\\Footer' => __DIR__ . '/../..' . '/app/Models/Footer.php',
         'App\\Models\\Header' => __DIR__ . '/../..' . '/app/Models/Header.php',
         'App\\Models\\Header_video' => __DIR__ . '/../..' . '/app/Models/Header_video.php',
+        'App\\Models\\Joinedevent' => __DIR__ . '/../..' . '/app/Models/Joinedevent.php',
         'App\\Models\\Partners' => __DIR__ . '/../..' . '/app/Models/Partners.php',
         'App\\Models\\Pledges' => __DIR__ . '/../..' . '/app/Models/Pledges.php',
         'App\\Models\\Project' => __DIR__ . '/../..' . '/app/Models/Project.php',

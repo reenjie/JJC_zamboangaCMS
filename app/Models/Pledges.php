@@ -16,9 +16,12 @@ class Pledges extends Model
         'notes',
         'status',
         'where',
+        'receiver',
         'detail',
         'pledgedate',
         'received',
-        'email'
+        'email',
+        'receivedby',
+        'datereceived'
     ];
 }

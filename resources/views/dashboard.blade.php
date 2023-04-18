@@ -60,13 +60,29 @@
                 </div>
             </div>
 
+          
             <div class="col-md-12 mt-5">
                 <div id="chartContainer" style="height: 300px; width: 100%;"></div>
 <script src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
             </div>
+            {{-- <div class="col-md-12 mt-3">
+                <div class="card">
+                    <div class="card-body">
+                        <h6>Other Settings <i class="fas fa-cogs"></i></h6>
+                        <br>
+                        <div class="row">
+                            <div class="col-md-6">
+                                
+                            </div>
+                        </div>
+                    </div>
+                </div>
+        </div> --}}
+
            </div>
         </div>
     </div>
+  
 @endsection
 
 @push('js')
@@ -107,7 +123,9 @@
             demo.initDashboardPageCharts();
 
           //  demo.showNotification();
-
+     
         });
+
+   
     </script>
 @endpush

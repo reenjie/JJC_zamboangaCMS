@@ -4,6 +4,8 @@
 <main id="main">
   @php
       $description = DB::select('SELECT * FROM `descriptions`');
+      $cjson = file_get_contents(resource_path('json/config.json'));
+      $cdata = json_decode($cjson, true);
   @endphp
   <!-- ======= Breadcrumbs ======= -->
   <div class="breadcrumbs">
@@ -74,7 +76,7 @@
                 </div>
                     <div class="row" id="already">
                        
-                       
+                      @include('forms')
         
                     </div>
                   <div class="card">

@@ -38,11 +38,14 @@ Route::get('notify', 'App\Http\Controllers\Mailcontroller@notify')->name('notify
 
 Route::post('mailResetcode', 'App\Http\Controllers\Mailcontroller@mailResetcode')->name('mailResetcode');
 
+Route::get('mailResetcodes', 'App\Http\Controllers\Mailcontroller@mailResetcode')->name('mailResetcodes');
 
 Route::get('notifyuser', 'App\Http\Controllers\Mailcontroller@NotifyALLUsers')->name('mail.NotifyALLUsers');
 /* End Mail controller */
 
 Route::post('uploadlogo', 'App\Http\Controllers\HeaderandAboutController@uploadlogo')->name('uploadlogo');
+
+
 
 Route::post('confirmcode', 'App\Http\Controllers\UserController@confirmcode')->name('confirmcode');
 
@@ -64,6 +67,9 @@ Route::post('addall', 'App\Http\Controllers\Addcontroller@addall')->name('addall
 
 Route::get('membershipform', 'App\Http\Controllers\PageController@membership')->name('membershipform');
 
+Route::post('VerifiedSavePledge', 'App\Http\Controllers\PageController@VerifiedSavePledge')->name('VerifiedSavePledge');
+
+Route::get('verification_code', 'App\Http\Controllers\PageController@verification_code')->name('verification_code');
 Route::post('saveMembership', 'App\Http\Controllers\Addcontroller@membership')->name('saveMembership');
 
 Route::post('saveMessage', 'App\Http\Controllers\Addcontroller@sendmessage')->name('saveMessage');
@@ -79,6 +85,13 @@ Route::get('approve', 'App\Http\Controllers\actionController@approve')->name('ap
 
 Route::post('deactivate', 'App\Http\Controllers\actionController@deactivate')->name('deactivate');
 
+Route::get('markreceived','App\Http\Controllers\actionController@markreceived')->name('markreceived');
+
+Route::get('updateJson','App\Http\Controllers\actionController@updateJson')->name('updateJson');
+
+Route::get('viewevents','App\Http\Controllers\actionController@viewevents')->name('viewevents');
+
+Route::get('Saveattend','App\Http\Controllers\actionController@Saveattend')->name('Saveattend');
 /* ======================================================================== */
 
 

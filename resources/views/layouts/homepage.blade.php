@@ -32,12 +32,14 @@
 
 <body>
   <main id="main">
+
   <!-- ======= Header ======= -->
   @php
       $contactdetails = DB::select('SELECT * FROM `contactdetails`');
       $headers = DB::select('SELECT * FROM `headers`');
       $aboutus = DB::select('SELECT * FROM `aboutuses`');
       $description = DB::select('SELECT * FROM `descriptions`');
+   
   @endphp
   
   <section id="topbar" class="topbar d-flex align-items-center">
@@ -273,6 +275,10 @@
 
   </footer><!-- End Footer -->
   <!-- End Footer -->
+
+
+  <!-- Button trigger modal -->
+
 
   <a href="#" class="scroll-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
 

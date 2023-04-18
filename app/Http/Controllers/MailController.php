@@ -263,13 +263,26 @@ class MailController extends Controller
 
     public function mailResetcode(Request $request)
     {
-        $validate = User::where('email', $request->email);
+        $subject = "RESET CODE";
+        $email = '';
+       
+        if($request->vercode){
+            $subject = "VERIFICATION CODE";
+            $email =  session()->get('pledges')['email'];
+            
+        }else {
+            $subject = "RESET CODE";
+            $email = $request->email;
+        }
+
+        $validate = User::where('email',$email );
         $resetCode = rand(100000, 999999);
         if (count($validate->get()) >= 1) {
             $validate->update([
                 'resetcode' => $resetCode
             ]);
 
+       
 
 
 
@@ -297,8 +310,8 @@ class MailController extends Controller
                 );
 
                 $mail->setFrom('capstone0223@gmail.com', 'jjcZamboanga_Website');
-                $mail->addAddress($request->email, 'resetter');
-                $mail->Subject = 'RESET CODE';
+                $mail->addAddress($email, 'resetter');
+                $mail->Subject = $subject;
                 $mail->CharSet = PHPMailer::CHARSET_UTF8;
                 $body = '<!DOCTYPE html>
                <html lang="en">
@@ -313,7 +326,7 @@ class MailController extends Controller
                <body >
                
                
-                       <h4>Your Reset Code is</h4>
+                       <h4>Your '.strtolower($subject).'  is</h4>
                
                
                            
@@ -337,9 +350,16 @@ class MailController extends Controller
                 $mail->msgHTML($body);
                 $mail->AltBody = 'This is a plain text message body';
                 if ($mail->send()) {
-                    session(['emailsend' => true]);
-                    session(['useremail' => $request->email]);
-                    return redirect()->back()->with('success', 'ResetCode Sent Successfully');
+                    if($request->vercode){
+                        session(['emailResetcode' => true]);
+                        session(['sessioncode' =>$resetCode]);
+                        return redirect()->route('verification_code')->with('success', 'verification code Sent Successfully');
+                    }else {
+                        session(['emailsend' => true]);
+                        session(['useremail' => $request->email]);
+                        return redirect()->back()->with('success', 'ResetCode Sent Successfully');
+                    }   
+                  
                 } else {
                     echo 'not send';
                     //  return redirect()->back()->with('error', 'Unable to send email.');

@@ -359,11 +359,13 @@ $description = DB::select('SELECT * FROM `descriptions`');
             <time datetime="2022-01-01">{{date('F j,Y',strtotime($item->startdate)).' - '.date('F j,Y',strtotime($item->enddate))}}</time>
           </p>
           <h3 class="title">
-            <a href="">{!!$item->title!!}</a>
+            <a href="javascript:void()" data-bs-toggle="modal" data-id="{{$item->id}}" class="viewdata" data-bs-target="#view">{!!$item->title!!}</a>
+       
+          
           </h3>
           <p class="event-description">{!!$item->desc!!}</p>
           <div class="buttons d-grid gap-2">
-            <button class="btn btn-primary" type="button">Attend</button>
+            <button class="btn btn-primary viewdata" type="button" data-bs-toggle="modal" data-id="{{$item->id}}" data-bs-target="#view">Attend</button>
             <button class="btn btn-primary" onclick="window.location.href='{{route('membershipform',['page'=>'volunteer'])}}'" type="button">Volunteer</button>
           </div>
         </article>
@@ -381,7 +383,44 @@ $description = DB::select('SELECT * FROM `descriptions`');
 
   </div>
 </section><!-- End Events Section -->
+  <!-- Modal -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.4/jquery.js" integrity="sha512-6DC1eE3AWg1bgitkoaRM1lhY98PxbMIbhgYCGV107aZlyzzvaWCW1nJW2vDuYQm06hXrW0As6OGKcIaAVWnHJw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+  <script>
+    $('.viewdata').click(function(){
+      var id = $(this).data('id');
 
+      $.ajax({
+      url: '{{route("viewevents")}}',
+      method: 'GET',
+      data: {
+        id: id
+      },
+      success: function(response) {
+        $('#viewdata').html(response);
+      },
+      error: function(jqXHR, textStatus, errorThrown) {
+        // Handle the error here
+      }
+    });
+      
+    })
+  </script>
+  <div class="modal fade" id="view" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-fullscreen ">
+      <div class="modal-content">
+        <div class="modal-header">
+        
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <div id="viewdata">
+
+          </div>
+        </div>
+       
+      </div>
+    </div>
+  </div>
 <!-- =======  Projects Section ======= -->
 <section id="projects" class="projects sections-bg">
   <div class="container" data-aos="fade-up">

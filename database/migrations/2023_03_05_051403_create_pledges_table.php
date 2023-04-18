@@ -15,7 +15,7 @@ return new class extends Migration
     {
         Schema::create('pledges', function (Blueprint $table) {
             $table->id();
-            $table->text('amount')->nullable();
+            $table->decimal('amount')->nullable();
             $table->text('goods')->nullable();
             $table->text('qty')->nullable();
             $table->text('notes')->nullable();
@@ -26,6 +26,8 @@ return new class extends Migration
             $table->date('pledgedate')->nullable();
             $table->integer('received')->comment(' 1 - yes')->nullable();
             $table->text('email');
+            $table->text('receivedby')->nullable();
+            $table->dateTime('datereceived')->nullable();
             $table->timestamps();
         });
     }
