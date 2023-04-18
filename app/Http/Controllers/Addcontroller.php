@@ -129,7 +129,7 @@ class Addcontroller extends Controller
 
   public function membership(Request $request)
   {
-    
+
     $check = $request->check;
     $email = $request->email;
     $fname = $request->fname;
@@ -151,17 +151,17 @@ class Addcontroller extends Controller
     $instagram = $request->instagram;
     $linkedin = $request->linkedin;
 
-  
-    $validate =  User::where('email',$email);
-    if(count($validate->get())== 0){
+
+    $validate =  User::where('email', $email)->where('role', 3);
+    if (count($validate->get()) == 0) {
       $user =  User::create([
-        'name'=>$fname.' '.$lname,
+        'name' => $fname . ' ' . $lname,
         'email' => $email,
-        'password' =>Hash::make('jjc_'.$lname) ,
-        'role' =>3,
+        'password' => Hash::make('jjc_' . $lname),
+        'role' => 3,
         'resetcode' => ''
       ]);
-    }else {
+    } else {
       $user = $validate->get()[0];
     }
 
@@ -190,8 +190,8 @@ class Addcontroller extends Controller
         'instagram' => $instagram,
         'linkedin' => $linkedin
       ]);
-      
- return redirect()->back()->with('success', 'WELCOME NEW MEMBER. Your Form was Submitted and we`ll response to you ASAP!');
+
+      return redirect()->back()->with('success', 'WELCOME NEW MEMBER. Your Form was Submitted and we`ll response to you ASAP!');
     } else if ($check == "update") {
 
       $req = Partners::where('email', $email);
@@ -226,43 +226,43 @@ class Addcontroller extends Controller
       }
     } else if ($check == "addwpledge") {
 
-   
-      $amount = $request->amount;
+      dd($request);
+      // $amount = $request->amount;
 
-      Partners::create([
-        'email' => $email,
-        'firstname' => $fname,
-        'middlename' => $mname,
-        'lastname' => $lname,
-        'dateofbirth' => $dob,
-        'gender' => $gender,
-        'status' => $status,
-        'religion' => $religion,
-        'placeofbirth' => $pob,
-        'address' => $ad1 . ' ,' . $ad2 . ' ,' . $ad3 . '  ,' . $ad4,
-        'members' => 0,
-        'pledges' => 1,
-        'volunteer' => 0,
-        'partnership' => 0,
-        'userID' => $user->id,
-        'message' => $amount,
-        'contact' => $contact,
-        'contactadd' => $contactadd,
-        'facebook' => $facebook,
-        'twitter' => $twitter,
-        'instagram' => $instagram,
-        'linkedin' => $linkedin
-      ]);
-      Pledges::create([
-        'amount' => $amount,
-        'email' => $email,
-        'goods' => $request->typeofgoods,
-        'qty' => $request->Qty,
-        'notes' => $request->notes
-      ]);
-      return redirect()->back()->with('success', 'WELCOME NEW MEMBER. Your Form and Pledge was Submitted and we will response to you ASAP!');
+      // Partners::create([
+      //   'email' => $email,
+      //   'firstname' => $fname,
+      //   'middlename' => $mname,
+      //   'lastname' => $lname,
+      //   'dateofbirth' => $dob,
+      //   'gender' => $gender,
+      //   'status' => $status,
+      //   'religion' => $religion,
+      //   'placeofbirth' => $pob,
+      //   'address' => $ad1 . ' ,' . $ad2 . ' ,' . $ad3 . '  ,' . $ad4,
+      //   'members' => 0,
+      //   'pledges' => 1,
+      //   'volunteer' => 0,
+      //   'partnership' => 0,
+      //   'userID' => $user->id,
+      //   'message' => $amount,
+      //   'contact' => $contact,
+      //   'contactadd' => $contactadd,
+      //   'facebook' => $facebook,
+      //   'twitter' => $twitter,
+      //   'instagram' => $instagram,
+      //   'linkedin' => $linkedin
+      // ]);
+      // Pledges::create([
+      //   'amount' => $amount,
+      //   'email' => $email,
+      //   'goods' => $request->typeofgoods,
+      //   'qty' => $request->Qty,
+      //   'notes' => $request->notes
+      // ]);
+      // return redirect()->back()->with('success', 'WELCOME NEW MEMBER. Your Form and Pledge was Submitted and we will response to you ASAP!');
     } else if ($check == "addvolunteer") {
-    
+
       Partners::create([
         'email' => $email,
         'firstname' => $fname,
@@ -290,7 +290,7 @@ class Addcontroller extends Controller
 
       return redirect()->back()->with('success', 'WELCOME OUR VOLUNTEER. Your Form was Submitted and we will response to you ASAP!');
     } else if ($check == "addpartnership") {
-   
+
 
       Partners::create([
         'email' => $email,
@@ -355,28 +355,26 @@ class Addcontroller extends Controller
     $id = $request->id;
 
 
-    if($type == 'blogs'){
-    Blogs::findorFail($id)->update([
-          'publish' => $pb
-        ]);
-    if($pb == 1){
-      //unpublish
-      return redirect()->route('mail.NotifyALLUsers',['types'=>'blogs']);
-    }
-    return redirect()->back()->with('success', 'Blog unpublished Successfully!');
+    if ($type == 'blogs') {
+      Blogs::findorFail($id)->update([
+        'publish' => $pb
+      ]);
+      if ($pb == 1) {
+        //unpublish
+        return redirect()->route('mail.NotifyALLUsers', ['types' => 'blogs']);
+      }
+      return redirect()->back()->with('success', 'Blog unpublished Successfully!');
     }
 
-    if($type == 'events'){
+    if ($type == 'events') {
       Events::findorFail($id)->update([
-              'publish' => $pb
-            ]);
-      if($pb == 1){
+        'publish' => $pb
+      ]);
+      if ($pb == 1) {
         //unpublish
-        return redirect()->route('mail.NotifyALLUsers',['types'=>'events']);
+        return redirect()->route('mail.NotifyALLUsers', ['types' => 'events']);
       }
       return redirect()->back()->with('success', 'Event unpublished Successfully!');
-      }
-
- 
+    }
   }
 }

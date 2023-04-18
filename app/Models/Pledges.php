@@ -9,11 +9,16 @@ class Pledges extends Model
 {
     use HasFactory;
 
-    protected $fillable=[
+    protected $fillable = [
         'amount',
-        'email',
         'goods',
         'qty',
-        'notes'
+        'notes',
+        'status',
+        'where',
+        'detail',
+        'pledgedate',
+        'received',
+        'email'
     ];
 }

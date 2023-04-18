@@ -1,0 +1,12 @@
+[
+    { "name": "Clothing and accessories" },
+    { "name": "Household items (furniture, appliances, bedding, towels)" },
+    { "name": "Food and beverages (non-perishable items, canned goods)" },
+    { "name": "Personal care items (toiletries, shampoo, soap)" },
+    { "name": "Toys and games" },
+    { "name": "Books and other reading materials" },
+    { "name": "Electronics (computers, smartphones, TVs)" },
+    { "name": "Office/school supplies" },
+    { "name": "Pet supplies" },
+    { "name": "Sporting goods and outdoor equipment" }
+]

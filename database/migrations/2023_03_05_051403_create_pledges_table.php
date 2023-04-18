@@ -19,6 +19,12 @@ return new class extends Migration
             $table->text('goods')->nullable();
             $table->text('qty')->nullable();
             $table->text('notes')->nullable();
+            $table->integer('status')->nullable();
+            $table->text('where')->nullable();
+            $table->text('receiver')->nullable();
+            $table->text('detail')->nullable();
+            $table->date('pledgedate')->nullable();
+            $table->integer('received')->comment(' 1 - yes')->nullable();
             $table->text('email');
             $table->timestamps();
         });
